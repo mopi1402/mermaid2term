@@ -1,0 +1,82 @@
+{
+  "name": "@tayomi/mermaid2term",
+  "version": "1.0.0",
+  "description": "Mermaid diagrams drawn as Unicode art in the terminal: eighteen diagram kinds, mermaid's own themes, no runtime dependency.",
+  "keywords": [
+    "mermaid",
+    "diagram",
+    "terminal",
+    "ansi",
+    "unicode",
+    "ascii-art",
+    "flowchart",
+    "cli"
+  ],
+  "license": "MIT",
+  "author": "Pierre Moati",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mopi1402/mermaid2term.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mopi1402/mermaid2term/issues"
+  },
+  "homepage": "https://github.com/mopi1402/mermaid2term#readme",
+  "type": "module",
+  "packageManager": "pnpm@10.4.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "mermaid2term": "./dist/cli/main.js"
+  },
+  "sideEffects": [
+    "./dist/cli/main.js"
+  ],
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "typecheck": "node scripts/memo.ts typecheck",
+    "test": "vitest run",
+    "audit": "tsx scripts/audit.ts",
+    "arrows": "node scripts/memo.ts arrows",
+    "strokes": "node scripts/memo.ts strokes",
+    "merges": "node scripts/memo.ts merges",
+    "grounds": "node scripts/memo.ts grounds",
+    "frozen": "node scripts/memo.ts frozen",
+    "clones": "node scripts/memo.ts clones",
+    "clones:baseline": "jscpd -c .jscpd.json --baseline .jscpd-baseline.json --update-baseline",
+    "frozen:update": "tsx scripts/frozen.ts --update",
+    "dup": "jscpd",
+    "deadcode": "node scripts/memo.ts deadcode",
+    "verify": "pnpm typecheck && vitest run && tsx scripts/ourtakes.ts --check && tsx scripts/arrows.ts && tsx scripts/strokes.ts && tsx scripts/merges.ts && tsx scripts/grounds.ts && tsx scripts/frozen.ts && pnpm clones && pnpm deadcode && pnpm --filter @tayomi/playground typecheck && pnpm --filter @tayomi/playground test",
+    "prepack": "pnpm build",
+    "ourtakes": "tsx scripts/ourtakes.ts",
+    "playground": "pnpm --filter @tayomi/playground dev",
+    "voir": "tsx scripts/voir.ts",
+    "glyphs": "tsx scripts/glyphs.ts",
+    "eastasianwidth": "tsx scripts/eastasianwidth.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "jscpd": "^5.4.1",
+    "knip": "^6.42.1",
+    "tsx": "^4.23.15",
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.11"
+  }
+}

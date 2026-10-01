@@ -1,0 +1,23 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "workspaces": {
+    ".": {
+      "entry": [
+        "src/index.ts",
+        "src/cli/main.ts",
+        "scripts/claude-passthrough.ts",
+        "scripts/sgr-attributes.ts"
+      ],
+      "project": [
+        "src/**/*.ts",
+        "scripts/**/*.ts",
+        "tests/**/*.ts"
+      ]
+    },
+    "packages/playground": {
+      "ignore": [
+        "src/components/ui/**"
+      ]
+    }
+  }
+}
