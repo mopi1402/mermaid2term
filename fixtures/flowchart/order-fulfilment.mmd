@@ -1,0 +1,16 @@
+flowchart
+    Start((Order placed)) --> Cart[Validate cart]
+    Cart --> Stock{In stock?}
+    Stock -->|Yes| Pay[[Charge card]]
+    Stock -->|No| Back>Backorder]
+    Back -.->|restocked| Cart
+    Pay <-->|3-D Secure| Bank{{Bank gateway}}
+    Pay --> Paid{Payment ok?}
+    Paid ==>|Yes| Pick@{ shape: div-rect, label: "Pick and pack" }
+    Paid -->|No| Retry@{ shape: lin-rect, label: "Retry payment" }
+    Retry -.->|3 attempts| Cancel([Order cancelled])
+    Retry --> Pay
+    Pick ==> Ship[Ship parcel]
+    Ship ==> Done(((Delivered)))
+    Bank -.-> Pci@{ shape: comment, label: "PCI scope" }
+    Ship -.-> Sla@{ shape: braces, label: "same-day cutoff 14:00" }

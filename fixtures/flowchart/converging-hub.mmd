@@ -1,0 +1,7 @@
+flowchart
+    A[Source] --> H[Hub]
+    B[Autre] -->|oui| H
+    C[Tiers] -.->|non| H
+    D[Quatre] ==> H
+    H --> E[Sortie]
+    H -->|peut etre| F[Erreur]

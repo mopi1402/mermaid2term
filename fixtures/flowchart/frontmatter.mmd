@@ -1,0 +1,15 @@
+---
+title: Nightly build
+config:
+  theme: forest
+  themeVariables:
+    mainBkg: "#d7efe0"
+    nodeBorder: "#2f7d52"
+    useGradient: false
+    textColor: "#14361f"
+    lineColor: "#1b5e3f"
+---
+flowchart LR
+    Fetch[Fetch sources] --> Build[Build]
+    Build --> Test[Test]
+    Test --> Publish[Publish]

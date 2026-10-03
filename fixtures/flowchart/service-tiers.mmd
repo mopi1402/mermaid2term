@@ -1,0 +1,23 @@
+flowchart
+    subgraph Frontend
+        W[Web]
+        M[Mobile]
+    end
+    subgraph Backend
+        BFF[BFF] --> G[API Gateway]
+        G --> A1[Auth Service]
+        G --> A2[Order Service]
+        G --> A3[Billing Service]
+    end
+    subgraph Data
+        D1[(Users)]
+        D2[(Orders)]
+        D3[(Invoices)]
+        Q@{ shape: h-cyl, label: "Queue" }
+    end
+    W --> BFF
+    M --> BFF
+    A1 --> D1
+    A2 --> D2
+    A2 --> Q
+    A3 --> D3

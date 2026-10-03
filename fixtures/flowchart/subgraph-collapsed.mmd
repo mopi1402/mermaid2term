@@ -1,0 +1,12 @@
+flowchart
+    Start --> une
+    subgraph une [Chaine de collecte]
+        lit --> valide
+        valide --> ecrit
+    end
+    une --> Fin[archive]
+    subgraph deux [Chaine ouverte]
+        trie --> range
+    end
+    une --> deux
+    une@{ view: collapsed }

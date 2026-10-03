@@ -1,0 +1,15 @@
+stateDiagram-v2
+    [*] --> Inbox
+    [*] --> Backlog
+    [*] --> Archive
+    [*] --> Spam
+    [*] --> Draft
+    Inbox --> Triage
+    Triage --> Urgent
+    Triage --> Routine
+    Backlog --> Planned
+    Backlog --> Deferred
+    Deferred --> [*]
+    Archive --> [*]
+    Spam --> Purged
+    Purged --> [*]

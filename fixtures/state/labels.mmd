@@ -1,0 +1,9 @@
+stateDiagram-v2
+    state "Waiting for the reader" as wait
+    hot : Hot path<br>cache warm
+    cold : "`**Cold** path, _rebuilt_`"
+    money : Costs #36;0.02
+    wait --> hot : hit
+    wait --> cold : miss
+    cold --> money : rebuild
+    money --> wait : served

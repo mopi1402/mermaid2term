@@ -1,0 +1,9 @@
+flowchart TB
+    subgraph Upper
+        A[one]
+    end
+    subgraph Lower
+        B[two]
+    end
+    Upper <--> Lower
+    Lower <--> A

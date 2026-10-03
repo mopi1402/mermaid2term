@@ -1,0 +1,6 @@
+flowchart
+    A[Order] --> B[Hidden step] --> C[Paid]
+    A --> D[Gone] --> C
+    style B visibility:hidden
+    classDef off display:none
+    class D off

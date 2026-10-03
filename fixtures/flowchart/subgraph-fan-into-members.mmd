@@ -1,0 +1,7 @@
+flowchart
+  Web --> Api
+  Web --> Db
+  subgraph Backend
+    Api --> Cache
+    Db
+  end

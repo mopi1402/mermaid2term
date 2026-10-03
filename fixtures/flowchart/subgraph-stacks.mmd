@@ -1,0 +1,24 @@
+flowchart
+    subgraph Intake
+        direction TD
+        A[PagerDuty sev-1] --> B[Normalize signal]
+        B --> C{Correlate alerts?}
+    end
+    subgraph Analysis
+        direction TD
+        C -->|valid| D[Assemble incident room]
+        C -->|noise| E[Close alert]
+        D --> F{Mitigation path}
+    end
+    subgraph Response
+        direction TD
+        F -->|automate| G[Run edge traffic shift]
+        F -->|coordinate| H[Page platform + product leads]
+        G --> I[Validate latency and error budgets]
+        H --> I
+    end
+    subgraph Learning
+        direction TD
+        I --> J[Capture incident timeline]
+        J --> K[Publish corrective actions]
+    end

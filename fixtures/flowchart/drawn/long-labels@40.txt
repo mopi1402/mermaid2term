@@ -1,0 +1,5 @@
+┌────────────┐  ┌────────┐  ┌─────────┐
+│premier long│  │deuxieme│  │troisieme│
+│  libelle   ├─⏵│  long  ├─⏵│  long   │
+│            │  │libelle │  │ libelle │
+└────────────┘  └────────┘  └─────────┘

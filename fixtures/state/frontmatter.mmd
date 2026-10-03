@@ -1,0 +1,16 @@
+---
+title: Order lifecycle
+config:
+  theme: neo
+  themeVariables:
+    mainBkg: "#e7f5ff"
+    nodeBorder: "#1971c2"
+    useGradient: false
+    lineColor: "#1971c2"
+    transitionLabelColor: "#0b4f8a"
+---
+stateDiagram-v2
+    [*] --> Draft
+    Draft --> Placed : confirm
+    Placed --> Shipped : dispatch
+    Shipped --> [*]

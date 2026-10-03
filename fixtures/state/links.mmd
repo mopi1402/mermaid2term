@@ -1,0 +1,9 @@
+stateDiagram-v2
+    [*] --> Queued
+    Queued --> Building : picked
+    Building --> Published : green
+    Building --> Failed : red
+    Failed --> Queued : retry
+    Published --> [*]
+    click Queued href "https://mermaid.js.org/syntax/stateDiagram.html"
+    click Building,Published "https://mermaid.js.org/syntax/stateDiagram.html" "the state syntax"

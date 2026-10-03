@@ -1,0 +1,17 @@
+stateDiagram-v2
+    direction TB
+    state if_state <<choice>>
+    [*] --> IsPositive
+    IsPositive --> if_state
+    if_state --> False : if n < 0
+    if_state --> True : if n >= 0
+    state fork_state <<fork>>
+    True --> fork_state
+    fork_state --> SquareRoot
+    fork_state --> Logarithm
+
+    state join_state <<join>>
+    SquareRoot --> join_state
+    Logarithm --> join_state
+    join_state --> Report
+    Report --> [*]

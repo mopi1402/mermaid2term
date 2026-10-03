@@ -1,0 +1,11 @@
+flowchart
+    A[App] -->|errors| H[Log Hub]
+    B[Nginx] -->|access| H
+    C[Worker] -.->|jobs| H
+    D[Postgres] ==>|slow queries| H
+    H ==>|critical| E[On-call]
+    H -->|the rest| F[Storage]
+    linkStyle 0 stroke:#ef4444
+    linkStyle 3 stroke:#f59e0b
+    linkStyle 4 stroke:#ef4444
+    linkStyle 5 stroke:#22c55e

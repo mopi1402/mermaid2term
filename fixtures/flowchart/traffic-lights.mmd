@@ -1,0 +1,15 @@
+flowchart
+    A[🧪 Tests] --> B{Result?}
+    B -->|pass| C[📦 Build]
+    B -->|fail| D[🔔 Alert]
+    B -->|flaky| E[🔁 Retry]
+    E --> A
+    C --> F{Deploy?}
+    F -->|yes| G[🚀 Production]
+    F -->|no| D
+    linkStyle 1 stroke:#22c55e
+    linkStyle 2 stroke:#ef4444
+    linkStyle 3 stroke:#f59e0b
+    linkStyle 4 stroke:#f59e0b
+    linkStyle 6 stroke:#22c55e
+    linkStyle 7 stroke:#ef4444

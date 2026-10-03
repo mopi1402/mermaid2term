@@ -1,0 +1,11 @@
+flowchart TD
+    A["Line one<br>line two"] --> B["`**Bold** and _italic_`"]
+    B --> C["<b>Tag b</b> and <i>tag i</i>"]
+    C --> D["Entities #quot;quoted#quot; and #amp;"]
+    D --> E["Emoji 🚀 and 日本語 width"]
+    E --> F[Weighed]
+    E --> G[Slanted]
+    classDef weighed font-weight:bold,fill:#eef
+    classDef slanted font-style:italic,fill:#efe
+    class F weighed
+    class G slanted

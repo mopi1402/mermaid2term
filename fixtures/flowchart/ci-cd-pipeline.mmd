@@ -1,0 +1,18 @@
+flowchart
+    A[Push] --> B[Build]
+    B --> C[Test]
+    C --> D{Pass?}
+    D -->|Yes| E[Deploy Staging]
+    D -->|No| F[Notify]
+    E --> G{Approve?}
+    G -->|Yes| H[Deploy Prod]
+    G -->|No| F
+    H --> I{Healthy?}
+    I -->|Yes| J[Done]
+    I -->|No| F
+    linkStyle 3 stroke:#22c55e
+    linkStyle 4 stroke:#ef4444
+    linkStyle 6 stroke:#22c55e
+    linkStyle 7 stroke:#ef4444
+    linkStyle 9 stroke:#22c55e
+    linkStyle 10 stroke:#ef4444

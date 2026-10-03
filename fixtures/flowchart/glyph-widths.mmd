@@ -1,0 +1,67 @@
+flowchart
+
+    subgraph une colonne pour le canevas
+        b01["⚠ U+26A0 panneau"] --> b02["① U+2460 cercle un"]
+        b02 --> b03["✓ U+2713 coche"]
+        b03 --> b04["✔ U+2714 coche grasse"]
+        b04 --> b05["✗ U+2717 croix"]
+        b05 --> b06["★ U+2605 etoile"]
+        b06 --> b07["♥ U+2665 coeur"]
+        b07 --> b08["● U+25CF disque"]
+        b08 --> b09["■ U+25A0 carre"]
+        b09 --> b10["▲ U+25B2 triangle"]
+        b10 --> b11["◉ U+25C9 cible"]
+        b11 --> b12["→ U+2192 fleche"]
+        b12 --> b13["⇒ U+21D2 fleche double"]
+        b13 --> b14["… U+2026 points de suite"]
+        b14 --> b15["« U+00AB guillemet"]
+        b15 --> b16["± U+00B1 plus ou moins"]
+        b16 --> b17["° U+00B0 degre"]
+        b17 --> b18["© U+00A9 copyright"]
+        b18 --> b19["€ U+20AC euro"]
+        b19 --> b20["≈ U+2248 environ"]
+        b20 --> b21["√ U+221A racine"]
+        b21 --> b22["┃ U+2503 trait gras"]
+        b22 --> b23["▒ U+2592 trame"]
+        b23 --> b24["╳ U+2573 croix de traits"]
+        b24 --> b25["ﬁ U+FB01 ligature"]
+        b25 --> b26["☻ U+263B visage noir"]
+        b26 --> b27["☉ U+2609 soleil"]
+    end
+
+    subgraph deux colonnes pour le canevas
+        c01["日 U+65E5 ideogramme"] --> c02["あ U+3042 hiragana"]
+        c02 --> c03["한 U+D55C hangul"]
+        c03 --> c04["Ａ U+FF21 latine large"]
+        c04 --> c05["０ U+FF10 chiffre large"]
+        c05 --> c06["〜 U+301C tilde ondule"]
+        c06 --> c07["✅ U+2705 coche verte"]
+        c07 --> c08["❌ U+274C croix rouge"]
+        c08 --> c09["⏰ U+23F0 reveil"]
+        c09 --> c10["🚀 U+1F680 fusee"]
+        c10 --> c11["◽ U+25FD petit carre"]
+        c11 --> c12["◾ U+25FE petit carre noir"]
+    end
+
+    subgraph plusieurs points de code un seul grapheme
+        d01["⚠️ U+26A0 U+FE0F variante"] --> d02["☝️ U+261D U+FE0F variante"]
+        d02 --> d03["👍🏽 U+1F44D U+1F3FD teint"]
+        d03 --> d04["👨‍👩‍👧 famille jointe"]
+        d04 --> d05["🏳️‍🌈 drapeau joint"]
+        d05 --> d06["🇫🇷 U+1F1EB U+1F1F7 pays"]
+        d06 --> d07["1️⃣ U+0031 U+FE0F U+20E3 touche"]
+        d07 --> d08["é U+0065 U+0301 combinant"]
+        d08 --> d09["ẛ̣ U+1E9B U+0323 empile"]
+    end
+
+    subgraph rien a voir mais une colonne quand meme
+        e01["a​b U+200B espace nulle"] --> e02["a‌b U+200C anti liaison"]
+        e02 --> e03["a͏b U+034F liant"]
+        e03 --> e04["a b U+00A0 espace insecable"]
+        e04 --> e05["a b U+2007 espace chiffre"]
+        e05 --> e06["a‏b U+200F sens inverse"]
+    end
+
+    b27 --> c01
+    c12 --> d01
+    d09 --> e01

@@ -1,0 +1,17 @@
+stateDiagram-v2
+    [*] --> Draft
+    Draft --> Review : submit
+    Review --> WaitingForEvidence:::waiting : missing evidence
+    WaitingForEvidence --> Review : evidence added
+    Review --> Approved:::good : approve
+    Review --> Rejected:::bad : reject
+    Approved --> InEffect : schedule
+    InEffect --> Validating : complete work
+    Validating --> Closed:::good : pass checks
+    Validating --> Revoking:::bad : fail checks
+    Revoking --> Closed : restore baseline
+    Rejected --> [*]
+    Closed --> [*]
+    classDef good fill:#14532d,stroke:#22c55e
+    classDef bad fill:#7f1d1d,stroke:#ef4444
+    classDef waiting fill:#c2410c,stroke:#f97316

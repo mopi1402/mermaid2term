@@ -1,0 +1,6 @@
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> Busy : start<br>job
+    Busy --> Idle : come<br>back
+    Busy --> Done : finish<br>it<br>now
+    Done --> [*]

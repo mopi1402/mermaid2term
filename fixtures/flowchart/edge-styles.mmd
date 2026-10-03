@@ -1,0 +1,5 @@
+flowchart
+    O[Order] --> S[Stock]
+    O -.->|async| L[Audit Log]
+    O ==>|critical| P[Payment]
+    S -->|low| R[Restock]

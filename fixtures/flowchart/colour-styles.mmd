@@ -1,0 +1,18 @@
+flowchart
+    A[Build]:::solid --> B{Gate}
+    B -->|ok| C[Release]
+    B -->|ko| D[Rollback]
+    C --> E[Announce]
+    D --> F[Alert]
+    E -.-> G[Archive]:::ghost
+    G -.-> H[Sealed]:::sealed
+    classDef solid fill:#22c55e
+    classDef ghost stroke-dasharray: 5 5
+    classDef sealed stroke-dasharray: 5 5,stroke-width:4px
+    classDef outlined fill:#22c55e,stroke:#16a34a
+    class C outlined
+    style D fill:#ef4444,stroke:#fbbf24
+    style E fill:#3b82f6
+    style F stroke:#f59e0b,stroke-width:4px
+    linkStyle 1 stroke:#22c55e
+    linkStyle 2 stroke:#ef4444

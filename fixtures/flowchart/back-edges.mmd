@@ -1,0 +1,7 @@
+flowchart
+    A[Start] --> B{Check}
+    B -->|ok| C[Work]
+    B -->|ko| A
+    C --> D{Again?}
+    D -->|yes| B
+    D -->|no| E[End]

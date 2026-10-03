@@ -1,0 +1,19 @@
+stateDiagram-v2
+    [*] --> First
+    state First {
+        [*] --> second
+        second --> [*]
+    }
+
+    [*] --> NamedComposite
+    NamedComposite: Another Composite
+    state NamedComposite {
+        [*] --> namedSimple
+        namedSimple: Another simple
+        namedSimple --> Nested
+        state Nested {
+            direction LR
+            check --> sign : ok
+        }
+        Nested --> [*]
+    }

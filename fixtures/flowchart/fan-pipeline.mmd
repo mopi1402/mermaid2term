@@ -1,0 +1,16 @@
+flowchart
+    A[Push] -->|premier| B[Build]
+    A -.->|second| A2[Cote]
+    A ==>|troisieme| A3[Gros]
+    B -->|quatrieme| A
+    B --> C{Pass?}
+    C -->|Yes| D[Stage]
+    C -->|No| E[Notify]
+    D --> F{Approve?}
+    F -->|Yes| G[Prod]
+    F -->|No| E
+    G --> H{Healthy?}
+    H -->|Yes| I[Done]
+    H -->|No| E
+    linkStyle 5,8,11 stroke:#22c55e
+    linkStyle 6,9,12 stroke:#ef4444
