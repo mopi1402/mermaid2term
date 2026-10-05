@@ -1,0 +1,12 @@
+classDiagram
+    class OrderService {
+        +place(Order one)
+        +cancel(int id)
+    }
+    class Warehouse {
+        +reserve(int sku)
+    }
+    Ordering ()-- OrderService
+    OrderService --() Billing
+    Warehouse --() Billing
+    OrderService "1" --> "1..*" Warehouse

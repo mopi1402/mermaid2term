@@ -1,0 +1,30 @@
+erDiagram
+    TEAM {
+      string id PK
+      string name
+      string region
+    }
+    INCIDENT {
+      string id PK
+      string team_id FK
+      string description
+      enum status "opened, investigating, closed"
+      datetime opened_at "UTC"
+    }
+    ACTION_ITEM {
+      string id PK
+      string incident_id FK
+      string assignee_id FK
+      string type
+      string priority
+    }
+    AUDIT_LOG {
+      string id PK
+      string incident_id FK
+      string actor
+      datetime recorded_at
+    }
+    TEAM ||--o{ INCIDENT : owns
+    INCIDENT ||--o{ ACTION_ITEM : includes
+    INCIDENT ||--o{ AUDIT_LOG : emits
+    ACTION_ITEM }o--|| TEAM : assigned_to

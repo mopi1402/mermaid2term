@@ -1,9 +1,14 @@
 import { announcing } from "../source/source.js";
 import type { DiagramKind, GraphKind } from "./@common/kind.js";
+import { CLASS_DIAGRAM } from "./classdiagram/kind.js";
+import { ER_DIAGRAM } from "./erdiagram/kind.js";
 import { FLOWCHART } from "./flowchart/kind.js";
 import { STATE_DIAGRAM } from "./statediagram/kind.js";
 
-const KINDS: readonly DiagramKind[] = [];
+const KINDS: readonly DiagramKind[] = [
+  CLASS_DIAGRAM,
+  ER_DIAGRAM,
+];
 
 const GRAPH_KINDS: readonly GraphKind[] = [STATE_DIAGRAM, FLOWCHART];
 

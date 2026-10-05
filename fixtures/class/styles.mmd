@@ -1,0 +1,45 @@
+classDiagram
+    class None
+    style None fill:#8ecae6,stroke-width:0
+    class Thin1
+    class Thin2
+    class Thin3
+    class Thin4
+    class Thin5
+    style Thin1 stroke:#8ecae6,stroke-width:1px,stroke-dasharray: 1
+    style Thin2 stroke:#8ecae6,stroke-width:1px,stroke-dasharray: 2
+    style Thin3 stroke:#8ecae6,stroke-width:1px,stroke-dasharray: 3
+    style Thin4 stroke:#8ecae6,stroke-width:1px,stroke-dasharray: 4
+    style Thin5 stroke:#8ecae6,stroke-width:1px,stroke-dasharray: 5
+    Thin1 --> Thin2
+    Thin2 --> Thin3
+    Thin3 --> Thin4
+    Thin4 --> Thin5
+    class Heavy1
+    class Heavy2
+    class Heavy3
+    class Heavy4
+    class Heavy5
+    style Heavy1 stroke:#219ebc,stroke-width:4px,stroke-dasharray: 1
+    style Heavy2 stroke:#219ebc,stroke-width:4px,stroke-dasharray: 2
+    style Heavy3 stroke:#219ebc,stroke-width:4px,stroke-dasharray: 3
+    style Heavy4 stroke:#219ebc,stroke-width:4px,stroke-dasharray: 4
+    style Heavy5 stroke:#219ebc,stroke-width:4px,stroke-dasharray: 5
+    Heavy1 --> Heavy2
+    Heavy2 --> Heavy3
+    Heavy3 --> Heavy4
+    Heavy4 --> Heavy5
+    class Fill
+    class Stroke
+    class Ink
+    class Pale
+    class All
+    style Fill fill:#8ecae6
+    style Stroke stroke:#219ebc
+    style Ink color:#8ecae6
+    style Pale fill:#023047,color:#8ecae6
+    style All fill:#8ecae6,stroke:#023047,stroke-width:2px,color:#023047
+    Fill --> Stroke
+    Stroke --> Ink
+    Ink --> Pale
+    Pale --> All

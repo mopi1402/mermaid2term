@@ -1,0 +1,27 @@
+┌───────────────────────────────────┐
+│           Repository<T>           │
+├───────────────────────────────────┤
+│ +String name                      │
+│ -int size = 0                     │
+│ #Clock clock                      │
+│ ~Logger log                       │
+│ +int instances                    │
+│───────────────────────────────────│
+│ +find(int id) : T                 │
+│ +all() : List<T>                  │
+│ +save(List<T> many, bool flush)   │
+│ +flush() : void                   │
+│ +open(String dsn) : Repository<T> │
+└─────────────────┬─────────────────┘
+                  │
+                reads
+                  │
+                  ⏷
+        ┌──────────────────┐
+        │   «interface»    │
+        │      Clock       │
+        ├──────────────────┤
+        │                  │
+        │──────────────────│
+        │ +now() : Instant │
+        └──────────────────┘

@@ -1,0 +1,18 @@
+classDiagram
+    class Repository~T~ {
+        +String name
+        -int size = 0
+        #Clock clock
+        ~Logger log
+        +int instances$
+        +find(int id) T
+        +all() List~T~
+        +save(List~T~ many, bool flush)
+        +flush() void*
+        +open(String dsn) Repository~T~$
+    }
+    class Clock {
+        <<interface>>
+        +now() Instant
+    }
+    Repository~T~ --> Clock : reads

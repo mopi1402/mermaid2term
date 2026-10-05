@@ -1,0 +1,7 @@
+erDiagram
+    ORDER ||--|| INVOICE : bills
+    ORDER ||..|| SHIPMENT : ships
+    ORDER ||.-o{ NOTE : carries
+    EMPLOYEE ||--o{ EMPLOYEE : manages
+    TEAM ||--o{ EMPLOYEE : employs
+    TEAM ||--o| EMPLOYEE : "is led by"

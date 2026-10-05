@@ -1,0 +1,16 @@
+---
+title: Library loans
+config:
+  theme: base
+  er:
+    layoutDirection: LR
+  themeVariables:
+    nodeBorder: "#b38600"
+    lineColor: "#b38600"
+    nodeTextColor: "#e8590c"
+    edgeLabelBackground: "#fff9db"
+---
+erDiagram
+    MEMBER ||--o{ LOAN : takes
+    BOOK ||--o{ LOAN : "lent as"
+    BOOK }o--|| SHELF : "stored on"

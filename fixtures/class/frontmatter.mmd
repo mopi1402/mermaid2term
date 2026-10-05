@@ -1,0 +1,21 @@
+---
+title: Billing domain
+config:
+  theme: base
+  class:
+    hideEmptyMembersBox: true
+  themeVariables:
+    mainBkg: "#f4ecff"
+    nodeBorder: "#7048e8"
+    lineColor: "#7048e8"
+    edgeLabelBackground: "#f4ecff"
+---
+classDiagram
+    class Invoice {
+        +issue()
+        +total() Money
+    }
+    class Money
+    class Currency
+    Invoice --> Money : amounts in
+    Money --> Currency : counted in

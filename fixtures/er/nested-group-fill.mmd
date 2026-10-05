@@ -1,0 +1,26 @@
+---
+config:
+  theme: neo
+---
+erDiagram
+    subgraph title1
+        CUSTOMER
+        CUSTOMER {
+            string name
+            string custNumber
+            string sector
+        }
+    end
+    subgraph title2
+        CAR ||--o{ NAMED-DRIVER : allows
+        subgraph title3
+            PERSON
+            PERSON {
+                string firstName
+                string lastName
+                int age
+            }
+        end
+    end
+
+    style title3 fill:#553300,stroke:#ff0000,color:#00ff00

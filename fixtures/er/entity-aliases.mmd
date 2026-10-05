@@ -1,0 +1,13 @@
+erDiagram
+    p[Person] {
+        string firstName
+        string lastName
+    }
+    a["Customer Account"] {
+        string iban PK
+        string holder
+    }
+    v["Véhicule ❤"]:::owned
+    p ||--o{ a : holds
+    p ||--o{ v : drives
+    classDef owned stroke:#90f

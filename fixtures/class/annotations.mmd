@@ -1,0 +1,21 @@
+classDiagram
+    class Shape {
+        <<interface>>
+        +area() float
+        +perimeter() float
+    }
+    class Figure <<abstract>> {
+        #String name
+        +describe() String
+    }
+    class Colour {
+        <<enumeration>>
+        RED
+        GREEN
+        BLUE
+    }
+    class Renderer
+    <<service>> Renderer
+    Shape <|.. Figure : implements
+    Figure --> Colour : painted in
+    Renderer --> Shape : draws

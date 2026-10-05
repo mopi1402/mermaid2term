@@ -1,0 +1,16 @@
+classDiagram
+    class Order {
+        +int id
+        +total() float
+    }
+    class Invoice {
+        +int number
+    }
+    class Refund {
+        +int amount
+    }
+    Order --> Invoice
+    Order --> Refund
+    style Order fill:#fff4d6,font-weight:bold
+    style Invoice fill:#e6f4ff,font-style:italic
+    style Refund fill:#ffe6e6,text-decoration:underline

@@ -1,0 +1,33 @@
+                                 ┌────────────────────┐
+                                 │        TEAM        │
+                                 ├────────────────────┤
+      ╭─────────────────────────╫┤string | id     | PK│
+      │                          │string | name   |   │
+      │                          │string | region |   │
+      │                          └──────────┬─────────┘
+      │                                    ═╪═
+      │                                    owns
+      │                                    ╭●╮
+      │       ┌────────────────────────────┴┴┴────────────────────────────┐
+      │       │                         INCIDENT                          │
+      │       ├───────────────────────────────────────────────────────────┤
+      │       │string   | id          | PK |                              │
+      │       │string   | team_id     | FK |                              │
+ assigned_to  │string   | description |    |                              │
+      │       │enum     | status      |    | opened, investigating, closed│
+      │       │datetime | opened_at   |    | UTC                          │
+      │       └──────────────────────────┬─────┬──────────────────────────┘
+      │                                 ═╪═   ═╪═
+      │                                  │     │
+      │                      ╭───────────╯     ╰──────────╮
+      │                   includes                      emits
+      │                     ╭●╮                          ╭●╮
+      │         ┌───────────┴┴┴───────────┐ ┌────────────┴┴┴────────────┐
+      │         │       ACTION_ITEM       │ │         AUDIT_LOG         │
+      │         ├─────────────────────────┤ ├───────────────────────────┤
+      │        ╭┤string | id          | PK│ │string   | id          | PK│
+      ╰────────●┤string | incident_id | FK│ │string   | incident_id | FK│
+               ╰┤string | assignee_id | FK│ │string   | actor       |   │
+                │string | type        |   │ │datetime | recorded_at |   │
+                │string | priority    |   │ └───────────────────────────┘
+                └─────────────────────────┘

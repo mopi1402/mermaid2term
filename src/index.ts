@@ -1,9 +1,13 @@
 export { declaredType, parse, render, renderThemed, renderThemedText, renderThemedTextTimed, type Options, type TimedText } from "./api.js";
 export { Graph } from "./graph/model.js";
 export { parseFlowchart } from "./diagrams/flowchart/parser.js";
+export { parseClassDiagram } from "./diagrams/classdiagram/parser.js";
+export { parseERDiagram } from "./diagrams/erdiagram/parser.js";
 export { parseStateDiagram } from "./diagrams/statediagram/parser.js";
 export { renderGraph, renderGraphCanvas } from "./graph/render/draw.js";
 export { BORDER_MODES, type BorderMode } from "./options.js";
+export { renderClassDiagram } from "./diagrams/classdiagram/render.js";
+export { renderERDiagram } from "./diagrams/erdiagram/render.js";
 export { renderGraph as renderText } from "./graph/render/draw.js";
 export { type CharSet } from "./canvas/model.js";
 export { CHARSETS, CHARSET_NAMES, COMPAT, DEFAULT_CHARSET, UNICODE, charsetOf } from "./canvas/charsets.js";
