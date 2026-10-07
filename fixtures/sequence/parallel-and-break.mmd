@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant U as Uploader
+    participant S as Storage
+    participant I as Indexer
+    participant N as Notifier
+    par to the store
+        U->>S: put object
+    and to the index
+        U->>I: queue for indexing
+    end
+    critical reach the store
+        S-->>U: 201 created
+    option timeout
+        S-->>U: retry later
+    option no space left
+        S-->>U: 507 refused
+    end
+    break quota reached
+        U->>N: warn the owner
+    end

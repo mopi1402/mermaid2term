@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant User as Fraud Analyst
+    participant Portal as Risk Console
+    participant Api as Risk API
+    participant Queue as Decision Queue
+    participant Worker as Scoring Worker
+    participant Store as Ledger Store
+    User->>Portal: Open charge review
+    Portal->>Api: Fetch order + customer context
+    Api->>Queue: Queue secondary scoring
+    Queue->>Worker: Recompute risk profile
+    Worker->>Store: Persist case evidence
+    Store-->>Api: Store versioned result
+    Api-->>Portal: Return approve/hold recommendation
+    Portal-->>User: Display reviewer action panel

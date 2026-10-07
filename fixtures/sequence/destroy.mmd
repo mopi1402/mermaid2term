@@ -1,0 +1,11 @@
+sequenceDiagram
+    participant Client
+    participant Session
+    participant Store
+    Client->>Session: login
+    Session->>Store: persist token
+    Store-->>Session: ok
+    Session-->>Client: cookie
+    Client->>Session: logout
+    destroy Session
+    Session-->>Client: bye

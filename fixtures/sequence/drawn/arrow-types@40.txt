@@ -1,0 +1,71 @@
+ ╭────╮                        ╭─────╮
+ │Left│                        │Right│
+ ╰────╯                        ╰─────╯
+    │                             │
+┌────────┐                        │
+│ Dotted │                        │
+└────────┘                        │
+    │ without arrow               │
+    ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+    │ with arrowhead              │
+    ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄⏵
+    │ with bidirectional          │
+    │ arrowheads                  │
+    ⏴┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄⏵
+    │ with a cross at the end     │
+    ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄x
+    │ with an open arrow          │
+    │ at the end (async)          │
+    ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄>
+┌───────┐                         │
+│ Solid │                         │
+└───────┘                         │
+    │ without arrow               │
+    ───────────────────────────────
+    │ with arrowhead              │
+    ──────────────────────────────⏵
+    │ with bidirectional          │
+    │ arrowheads                  │
+    ⏴─────────────────────────────⏵
+    │ with a cross at the end     │
+    ──────────────────────────────x
+    │ with an open arrow          │
+    │ at the end (async)          │
+    ──────────────────────────────>
+┌─────────────┐                   │
+│ Half-Arrows │                   │
+└─────────────┘                   │
+    │ with top half arrowhead     │
+    ─────────────────────────────┺│
+    │ with bottom                 │
+    │ half arrowhead              │
+    ─────────────────────────────┲│
+    │ with reverse top            │
+    │ half arrowhead              │
+    │┹─────────────────────────────
+    │ with reverse bottom         │
+    │ half arrowhead              │
+    │┱─────────────────────────────
+    │ with top stick              │
+    │ half arrowhead              │
+    ─────────────────────────────⸌│
+    │ with bottom stick           │
+    │ half arrowhead              │
+    ─────────────────────────────⸝│
+    │ with reverse top            │
+    │ stick half arrowhead        │
+    │⸍─────────────────────────────
+    │ with reverse bottom         │
+    │ stick half arrowhead        │
+    │⸜─────────────────────────────
+┌─────────────────┐               │
+│ Connection dots │               │
+└─────────────────┘               │
+    │ with a dot at               │
+    │ the receiver                │
+    ─────────────────────────────⏵●
+    │ with a dot at the sender    │
+    ●─────────────────────────────⏵
+    │ with a dot at both ends     │
+    ●────────────────────────────⏵●
+    │                             │

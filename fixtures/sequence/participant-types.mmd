@@ -1,0 +1,10 @@
+sequenceDiagram
+    actor Cus as Customer
+    participant API as Order API
+    participant Jobs@{ "type": "queue" }
+    participant Orders@{ "type": "database" }
+    Cus->>API: place order
+    API->>Orders: insert order
+    Orders-->>API: id 4021
+    API->>Jobs: enqueue confirmation
+    API-->>Cus: order confirmed

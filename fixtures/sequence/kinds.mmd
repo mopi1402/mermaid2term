@@ -1,0 +1,11 @@
+sequenceDiagram
+    actor Al as Alice
+    participant Srv as Server
+    participant DB@{ "type": "database" }
+    participant Q@{ "type": "queue" }
+    participant B@{ "type": "boundary" }
+    participant C@{ "type": "control" }
+    participant E@{ "type": "entity" }
+    participant Col@{ "type": "collections" }
+    Al->>Srv: request
+    Srv->>DB: query

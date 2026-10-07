@@ -1,0 +1,31 @@
+sequenceDiagram
+    participant A as Left
+    participant B as Right
+    Note left of A: Dotted
+    A-->B: without arrow
+    A-->>B: with arrowhead
+    A<<-->>B: with bidirectional arrowheads
+    A--xB: with a cross at the end
+    A--)B: with an open arrow at the end (async)
+
+    Note left of A: Solid
+    A->B: without arrow
+    A->>B: with arrowhead
+    A<<->>B: with bidirectional arrowheads
+    A-xB: with a cross at the end
+    A-)B: with an open arrow at the end (async)
+
+    Note left of A: Half-Arrows
+    A-|\B: with top half arrowhead
+    A-|/B: with bottom half arrowhead
+    A/|-B: with reverse top half arrowhead
+    A\|-B: with reverse bottom half arrowhead
+    A-\\B: with top stick half arrowhead
+    A-//B: with bottom stick half arrowhead
+    A//-B: with reverse top stick half arrowhead
+    A\\-B: with reverse bottom stick half arrowhead
+
+    Note left of A: Connection dots
+    A->>()B: with a dot at the receiver
+    A()->>B: with a dot at the sender
+    A()->>()B: with a dot at both ends

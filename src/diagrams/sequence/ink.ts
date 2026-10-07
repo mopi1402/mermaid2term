@@ -1,0 +1,14 @@
+import { ACTIVE, ACTOR, BAND_MARK, LABEL_BOX, LOOP_LABEL, LOOP_LINE, SIGNAL, SIGNAL_LABEL, SIGNAL_LINE } from "../../canvas/keys.js";
+
+export const STYLE_ACTIVE = ACTIVE;
+export const STYLE_BAND = BAND_MARK;
+
+export const STYLE_FRAME = LOOP_LINE;
+export const STYLE_FRAME_TAB = LABEL_BOX;
+export const STYLE_SECTION_TAB = LOOP_LABEL;
+
+export const STYLE_SIGNAL = SIGNAL;
+export const STYLE_SIGNAL_LINE = SIGNAL_LINE;
+export const STYLE_SIGNAL_LABEL = SIGNAL_LABEL;
+
+export const STYLE_ACTOR = ACTOR;

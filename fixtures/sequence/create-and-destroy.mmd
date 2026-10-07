@@ -1,0 +1,12 @@
+sequenceDiagram
+    participant Client
+    participant Auth
+    Client->>Auth: login
+    create participant Session
+    Auth->>Session: open
+    Session-->>Client: cookie
+    Client->>Session: read profile
+    Session-->>Client: profile
+    Client->>Session: logout
+    destroy Session
+    Session-->>Client: bye

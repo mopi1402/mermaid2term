@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant M as Monitor
+    participant S as Service
+    participant P as Pager
+    M->>S: Register probe
+    loop every minute
+        M->>S: Ping
+        alt is up
+            S-->>M: Pong
+        else no answer
+            M->>P: Raise incident
+        end
+    end
+    opt after hours
+        P->>M: Escalate
+    end

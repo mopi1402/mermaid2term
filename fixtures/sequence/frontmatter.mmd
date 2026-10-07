@@ -1,0 +1,21 @@
+---
+title: Password reset
+config:
+  theme: neutral
+  sequence:
+    showSequenceNumbers: true
+    mirrorActors: true
+  themeVariables:
+    actorBkg: "#e8eefc"
+    actorBorder: "#3b5bdb"
+    actorTextColor: "#1b2559"
+    signalColor: "#c2410c"
+    signalTextColor: "#c2410c"
+---
+sequenceDiagram
+    participant U as User
+    participant A as Account
+    participant M as Mailer
+    U->>A: ask for a link
+    A->>M: send the link
+    M-->>U: link in the inbox

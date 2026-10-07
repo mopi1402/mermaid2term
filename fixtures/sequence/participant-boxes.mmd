@@ -1,0 +1,20 @@
+sequenceDiagram
+    box rgb(91,84,140) Business
+    participant CL as Client
+    participant PO as PO
+    end
+    box rgb(60,120,110) Tech
+    participant DEV as Dev
+    participant CI as CI
+    end
+    CL->>PO: Any update on TICKET-42?
+    PO->>CL: Let me check
+    PO->>DEV: How's the ticket going?
+    Note over PO,DEV: Status check
+    DEV->>CI: Trigger the build
+    CI->>DEV: Build green
+    %% you can also use rect
+    rect rgb(191, 223, 255)
+    DEV-->>PO: It's in QA!
+    end
+    PO-->>CL: Ready for you to test tomorrow

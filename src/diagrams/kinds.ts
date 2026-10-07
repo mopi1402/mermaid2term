@@ -3,9 +3,11 @@ import type { DiagramKind, GraphKind } from "./@common/kind.js";
 import { CLASS_DIAGRAM } from "./classdiagram/kind.js";
 import { ER_DIAGRAM } from "./erdiagram/kind.js";
 import { FLOWCHART } from "./flowchart/kind.js";
+import { SEQUENCE } from "./sequence/kind.js";
 import { STATE_DIAGRAM } from "./statediagram/kind.js";
 
 const KINDS: readonly DiagramKind[] = [
+  SEQUENCE,
   CLASS_DIAGRAM,
   ER_DIAGRAM,
 ];
