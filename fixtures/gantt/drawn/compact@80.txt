@@ -1,0 +1,10 @@
+                                       Release Train
+
+ Backend      │  Schema ▌     API ┃  ▌  Workers  ▌  Cache  │         │       │
+ ╌╌╌╌╌╌╌╌╌╌╌╌╌│╌╌╌╌╌╌╌│╌╌╌╌╌╌╌╌╌│╌┃╌╌╌╌╌╌│╌╌╌╌╌╌╌╌│╌╌╌╌╌╌╌╌│╌╌╌╌╌╌╌╌╌│╌╌╌╌╌╌╌│
+ Frontend     │  Design  ▌    Scre┃ens   ▌  Polish         │         │       │
+ ╌╌╌╌╌╌╌╌╌╌╌╌╌│╌╌╌╌╌╌╌│╌╌╌╌╌╌╌╌╌│╌┃╌╌╌╌╌╌│╌╌╌╌╌╌╌╌│╌╌╌╌╌╌╌╌│╌╌╌╌╌╌╌╌╌│╌╌╌╌╌╌╌│
+ Release      │       │         │ ┃      │ Code freeze      ▌ Rollout        ◆
+              └┬──────┬─────────┬─┴──────┬────────┬────────┬─────────┬───────┤
+            Feb 02 Feb 08    Feb 15   Feb 22   Mar 01   Mar 08    Mar 15  Mar│21
+                                Beta                                       Ship

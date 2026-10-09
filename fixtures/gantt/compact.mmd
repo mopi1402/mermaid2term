@@ -1,0 +1,21 @@
+---
+displayMode: compact
+---
+gantt
+    title Release Train
+    dateFormat YYYY-MM-DD
+    axisFormat %b %d
+    section Backend
+        Schema      :done,   b1, 2026-02-02, 8d
+        API         :done,   b2, after b1, 10d
+        Workers     :active, b3, after b2, 9d
+        Cache       :        b4, after b3, 7d
+    section Frontend
+        Design      :done,   f1, 2026-02-02, 9d
+        Screens     :active, f2, after f1, 12d
+        Polish      :        f3, after f2, 8d
+        Beta        :vert,   v1, 2026-02-17, 0d
+    section Release
+        Code freeze :crit,   r1, 2026-03-05, 4d
+        Rollout     :        r2, 2026-03-09, 8d
+        Ship        :milestone, m1, 2026-03-21, 0d

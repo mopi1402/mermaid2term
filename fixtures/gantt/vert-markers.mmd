@@ -1,0 +1,12 @@
+gantt
+    title Conference talk
+    dateFormat YYYY-MM-DD
+    section Proposal
+        Write abstract   :done, abs, 2026-08-03, 5d
+        CFP closes       :vert, cfp, 2026-08-10, 0d
+    section Talk
+        Draft slides     :active, slides, 2026-08-12, 10d
+        Schedule out     :vert, sched, 2026-08-17, 0d
+        Dry run          :dry, after slides, 2d
+        Speaker check-in :vert, checkin, 2026-08-31, 0d
+        Give the talk    :milestone, talk, 2026-09-01, 0d

@@ -1,0 +1,41 @@
+Product lifecycle
+
+══ Discover ══
+│
+●── Jan
+│   Interviews
+│
+══ Design ══
+│
+●── Mar
+│   Prototype
+│
+══ Build ══
+│
+●── May
+│   MVP
+│
+══ Test ══
+│
+●── Jul
+│   Beta
+│
+══ Pilot ══
+│
+●── Sep
+│   Two clients
+│
+══ Launch ══
+│
+●── Nov
+│   GA
+│
+══ Scale ══
+│
+●── Feb
+│   EU region
+│
+══ Retire ══
+│
+●── Jun
+│   Old plan off

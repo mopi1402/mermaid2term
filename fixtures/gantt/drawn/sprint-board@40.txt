@@ -1,0 +1,39 @@
+                           PLAT board, July sprints
+
+ Sprint 27                           │        │
+   PLAT-412 Audit token scopes       │█       │
+   PLAT-415 Patch the quota leak     │█       │
+   PLAT-418 Spike the quota backend  │█       │
+   PLAT-421 Retire a legacy webhook  │ █      │
+   PLAT-427 Split the config service │ ▇      │
+   PLAT-429 Cut the release branch   │  █     │
+   PLAT-424 Sprint 27 review         │  ◆     │
+ ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌│╌╌╌╌╌╌╌╌│
+ Sprint 28                           │        │
+   PLAT-431 Shard the event bus      │   █    │
+   PLAT-433 Rate limit the admin API │   █    │
+   PLAT-437 Backfill the audit rows  │   █    │
+   PLAT-439 Drop the v1 endpoint     │   ▇    │
+   PLAT-441 Cache the search index   │    █   │
+   PLAT-444 Migrate the job queue    │     █  │
+   PLAT-445 Draft the runbook        │      █ │
+   PLAT-446 Sprint 28 review         │      ◆ │
+ ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌│╌╌╌╌╌╌╌╌│
+ Hardening                           │        │
+   PLAT-451 Chase a flaky pay test   │ █      │
+   PLAT-454 Rotate the signing keys  │    █   │
+   PLAT-458 Trim the alert rules     │     █  │
+   PLAT-461 Pin the runner image     │      █ │
+   PLAT-463 Load test the new shards │      ▇ │
+   PLAT-466 Sign off on the load run │       ◆│
+ ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌│╌╌╌╌╌╌╌╌│
+ Support                             │        │
+   PLAT-470 Escalation from billing  │█       │
+   PLAT-472 Restore tenant snapshot  │  █     │
+   PLAT-475 Reissue expired tokens   │   █    │
+   PLAT-478 Chase a stuck webhook    │     █  │
+   PLAT-481 Triage the on-call inbox │       █│
+   PLAT-486 Close the sprint reports │       ▇│
+   PLAT-484 July retrospective       │       ◆│
+                                     └┬───────┬
+                                 2026-07-01

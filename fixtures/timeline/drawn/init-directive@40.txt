@@ -1,0 +1,19 @@
+ Support ticket flow
+
+══ Triage ══
+│
+●── Received
+│   Auto tagged
+│
+●── Assigned
+│   First reply
+│
+══ Work ══
+│
+●── In progress
+│   Fix drafted
+│
+══ Close ══
+│
+●── Resolved
+│   Customer confirms

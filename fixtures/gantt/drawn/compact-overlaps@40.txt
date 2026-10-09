@@ -1,0 +1,7 @@
+                 A Gantt Diagram
+
+ Section     │  A task       Anot… │
+             │       Another       │
+             │        task         │
+             └┬────────────────────┬
+         2014-01-01           2014-03-02

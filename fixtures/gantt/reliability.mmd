@@ -1,0 +1,12 @@
+gantt
+    title Q2 Reliability Hardening
+    dateFormat  YYYY-MM-DD
+    section Discovery
+    Stabilize alert topology :done, gm1a, 2026-04-01, 3d
+    Review runbook gaps :done, gm1b, after gm1a, 2d
+    section Build
+    Automate remediation hooks :active, gm1c, after gm1b, 4d
+    Refactor canary policies :crit, gm1d, after gm1c, 3d
+    section Launch
+    Gradual enablement :active, gm1e, after gm1d, 2d
+    Ops handoff :milestone, gm1f, after gm1e, 2d

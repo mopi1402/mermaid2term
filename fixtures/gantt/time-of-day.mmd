@@ -1,0 +1,14 @@
+gantt
+    title Database migration night
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    tickInterval 1hour
+    section Prepare
+        Freeze writes      :done, fr, 2026-06-12 21:00, 30m
+        Snapshot primary   :done, snap, after fr, 1.5h
+    section Migrate
+        Run schema change  :active, mig, after snap, 2h
+        Backfill indexes   :crit, idx, after mig, 90m
+    section Verify
+        Smoke tests        :smoke, after idx, 45m
+        Reopen writes      :milestone, open, after smoke, 0m

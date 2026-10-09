@@ -1,0 +1,17 @@
+Mobile app releases
+
+══ 2024 ══
+│
+●── March
+│   Public beta
+│
+●── September
+│   Store launch
+│
+══ 2025 ══
+│
+●── February
+│   Offline mode
+│
+●── October
+│   Tablet layout

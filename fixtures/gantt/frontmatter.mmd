@@ -1,0 +1,21 @@
+---
+title: Release week
+config:
+  theme: redux
+  gantt:
+    axisFormat: '%d %b'
+    tickInterval: 12hour
+  themeVariables:
+    sectionBkgColor: "#4c6ef5"
+    altSectionBkgColor: "#12b886"
+    doneTaskBkgColor: "#adb5bd"
+    activeTaskBkgColor: "#f59f00"
+    gridColor: "#ced4da"
+---
+gantt
+    dateFormat YYYY-MM-DD
+    section Cut
+    Freeze the branch :done, f, 2026-03-02, 1d
+    Tag the release   :active, t, after f, 1d
+    section Ship
+    Publish           :p, after t, 2d

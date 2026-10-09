@@ -1,0 +1,15 @@
+                    Q2 Reliability Hardening
+
+ Discovery                    │        │
+   Stabilize alert topology   │█       │
+   Review runbook gaps        │ █      │
+ ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌│╌╌╌╌╌╌╌╌│
+ Build                        │        │
+   Automate remediation hooks │  ██    │
+   Refactor canary policies   │    ██  │
+ ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌│╌╌╌╌╌╌╌╌│
+ Launch                       │        │
+   Gradual enablement         │      █ │
+   Ops handoff                │       ◆│
+                              └┬───────┬
+                          2026-04-01

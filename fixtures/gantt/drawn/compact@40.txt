@@ -1,0 +1,10 @@
+                   Release Train
+
+ Backend      │  ▌ API┃ W…▌    Cache │
+ ╌╌╌╌╌╌╌╌╌╌╌╌╌│╌╌╌╌╌╌╌┃╌╌╌╌│╌╌╌╌╌╌╌╌╌│
+ Frontend     │ D…▌ S…┃▌     Polish  │
+ ╌╌╌╌╌╌╌╌╌╌╌╌╌│╌╌╌╌╌╌╌┃╌╌╌╌│╌╌╌╌╌╌╌╌╌│
+ Release      │ Code f┃reeze  ▌ R…   ◆
+              └┬──────┴────┬─────────┤
+            Feb 02      Mar 01    Mar│21
+                    Beta           Ship

@@ -1,0 +1,15 @@
+                Database migration night
+
+ Prepare             │  │ │  │ │  │ │
+   Freeze writes     │█ │ │  │ │  │ │
+   Snapshot primary  │ ███│  │ │  │ │
+ ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌│╌╌│╌│╌╌│╌│╌╌│╌│╌
+ Migrate             │  │ │  │ │  │ │
+   Run schema change │  │ █████│  │ │
+   Backfill indexes  │  │ │  │ ████ │
+ ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌│╌╌│╌│╌╌│╌│╌╌│╌│╌
+ Verify              │  │ │  │ │  │ │
+   Smoke tests       │  │ │  │ │  │██
+   Reopen writes     │  │ │  │ │  │ │◆
+                     └┬─┬─┬──┬─┬──┬─┬─
+                    21:00  00:00  03:00

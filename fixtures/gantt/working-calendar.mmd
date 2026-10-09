@@ -1,0 +1,13 @@
+gantt
+    title Dubai store opening
+    dateFormat YYYY-MM-DD
+    weekend friday
+    excludes weekends, 2026-03-19
+    includes 2026-03-21
+    section Stores
+        Train staff       :done, train, 2026-03-15, 4d
+        Stock shelves     :active, stock, after train, 3d
+        Open doors        :open, after stock, 2d
+    section Marketing
+        Print flyers      :print, 2026-03-15, 5d
+        Launch ads        :crit, ads, after print, 3d

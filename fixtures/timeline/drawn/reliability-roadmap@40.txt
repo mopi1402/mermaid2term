@@ -1,0 +1,18 @@
+   Platform Reliability Roadmap
+
+●── 2022
+│   Consolidated alerting layers
+│
+●── 2023
+│   Introduced runbook automation
+│
+●── 2024
+│   Added deterministic deployment
+│   gates
+│
+●── 2025
+│   Unified incident evidence model
+│
+●── 2026
+│   Rolled out live browser
+│   diagnostics

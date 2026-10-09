@@ -1,0 +1,12 @@
+gantt
+    title Sprint cadence
+    dateFormat YYYY-MM-DD
+    axisFormat %m-%d
+    tickInterval 1week
+    weekday monday
+    section Build
+        Groundwork   :done, gw, 2024-01-01, 9d
+        Feature work :active, fw, after gw, 12d
+    section Ship
+        Hardening    :hd, after fw, 5d
+        Release      :milestone, rel, after hd, 0d

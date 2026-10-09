@@ -1,0 +1,17 @@
+ Datastore migrations
+
+══ Sharding ══
+│
+●── 2023
+│   First shard
+│
+●── 2024
+│   Read replicas
+│
+══ Resilience ══
+│
+●── 2025
+│   Region failover
+│
+●── 2026
+│   Multi region writes

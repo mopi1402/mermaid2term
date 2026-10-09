@@ -1,0 +1,11 @@
+gantt
+    title Field season
+    dateFormat DD-MMM-YYYY
+    excludes 09-Mar-2024
+    section Survey
+        Site walk    :done, walk, 04-Mar-2024, 3d
+        Soil samples :active, soil, after walk, 4d
+        Lab window   :lab, after soil, 5d
+    section Report
+        Draft        :draft, after lab, 3d
+        Sign-off     :milestone, sign, after draft, 0d

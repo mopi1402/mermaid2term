@@ -1,0 +1,11 @@
+                         Platform Reliability Roadmap
+
+┌──────────────┬──────────────┬───────────────┬────────────────┬──────────────┐
+│     2022     │     2023     │     2024      │      2025      │     2026     │
+│ Consolidated │  Introduced  │     Added     │    Unified     │  Rolled out  │
+│   alerting   │   runbook    │ deterministic │    incident    │ live browser │
+│    layers    │  automation  │  deployment   │ evidence model │ diagnostics  │
+│              │              │     gates     │                │              │
+└───────┬──────┴───────┬──────┴───────┬───────┴────────┬───────┴───────┬──────┘
+        │              │              │                │               │
+────────┴──────────────┴──────────────┴────────────────┴───────────────┴──────⏵

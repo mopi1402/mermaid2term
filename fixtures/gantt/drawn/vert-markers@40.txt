@@ -1,0 +1,14 @@
+                   Conference talk
+
+ Proposal         │   ┃   ┃       ┃│
+   Write abstract │██ ┃   ┃       ┃│
+ ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌│╌╌╌┃╌╌╌┃╌╌╌╌╌╌╌┃│
+ Talk             │   ┃   ┃       ┃│
+   Draft slides   │   ┃███┃██     ┃│
+   Dry run        │   ┃   ┃  █    ┃│
+   Give the talk  │   ┃   ┃       ┃◆
+                  └┬──┴───┴───────┴┬
+              2026-08-03      2026-09-01
+                 CFP closes
+                    Schedule out
+                        Speaker check-in

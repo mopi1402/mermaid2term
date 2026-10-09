@@ -1,0 +1,12 @@
+                    Field season
+
+ Survey         │                  │
+   Site walk    │███               │
+   Soil samples │   ██████         │
+   Lab window   │         █████    │
+ ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌│╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌│
+ Report         │                  │
+   Draft        │              ████│
+   Sign-off     │                  ◆
+                └┬─────────────────┬
+            2024-03-04        2024-03-20

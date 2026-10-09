@@ -1,0 +1,23 @@
+gantt
+    title Atlas 2.0 Launch Plan
+    dateFormat YYYY-MM-DD
+    todayMarker off
+    section Design
+        User research    :done, res, 2026-01-05, 2w
+        Wireframes       :done, wire, after res, 1w
+        Visual design    :active, vis, after wire, 2w
+        Design sign-off  :milestone, dsig, after vis, 0d
+    section Build
+        API contracts    :done, api, 2026-01-19, 10d
+        Core services    :crit, core, after api, 3w
+        Web client       :ui, after dsig, 3w
+        Payments         :crit, pay, after core, 2w
+    section Hardening
+        Load testing     :load, after pay, 1w
+        Security review  :crit, sec, after pay, 10d
+        Bug triage       :active, bugs, 2026-03-02, 3w
+        Checkpoint       :vert, chk, 2026-03-02, 0d
+    section Launch
+        Code freeze      :milestone, crit, freeze, after sec load, 0d
+        Beta rollout     :beta, after freeze, 1w
+        GA               :milestone, ga, after beta, 0d

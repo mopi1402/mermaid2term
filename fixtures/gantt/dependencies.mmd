@@ -1,0 +1,15 @@
+gantt
+    title Mobile app 3.0
+    dateFormat YYYY-MM-DD
+    section Platform
+        Auth service     :auth, 2026-05-04, 6d
+        Sync engine      :sync, 2026-05-04, 9d
+        Push gateway     :push, after auth, 4d
+    section Clients
+        iOS build        :ios, after auth sync, 8d
+        Android build    :droid, after sync push, 8d
+        Store assets     :art, 2026-05-06, until ios droid
+    section Release
+        Beta signups     :beta, 2026-05-11, until rc
+        Release notes    :notes, after ios, 2026-05-29
+        Release candidate :rc, after ios droid, 3d

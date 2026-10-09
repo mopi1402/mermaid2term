@@ -1,0 +1,10 @@
+                       Release week
+
+ Cut                 │ │ │ │ │ │ │ │ │
+   Freeze the branch │███│ │ │ │ │ │ │
+   Tag the release   │ │ ████│ │ │ │ │
+ ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌│╌│╌│╌│╌│╌│╌│╌│╌│
+ Ship                │ │ │ │ │ │ │ │ │
+   Publish           │ │ │ │ ████████│
+                     └┬┬─┬─┬─┬─┬─┬─┬─┬
+                   02 Mar 04 Mar  06 Mar
