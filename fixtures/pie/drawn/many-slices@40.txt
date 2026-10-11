@@ -1,0 +1,16 @@
+          Signups by country
+
+               ██████████████████
+               25%
+
+
+ United States┃████▌  25.0%
+       Germany┃██▊  15.0%
+United Kingdom┃██▎  12.5%
+        France┃█▊  10.0%
+         Japan┃█▊  10.0%
+        Canada┃█▍   7.5%
+        Brazil┃█▍   7.5%
+         India┃█   5.0%
+         Spain┃█   5.0%
+        Mexico┃█   2.5%

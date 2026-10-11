@@ -1,0 +1,10 @@
+              Hours logged on the release
+
+         ████████████████████████████████████████
+           Backend 38%  Frontend 33% QA 18%  13%
+
+
+ Backend┃███████████████  37.5%
+Frontend┃█████████████  32.5%
+      QA┃███████  17.5%
+    Docs┃█████  12.5%

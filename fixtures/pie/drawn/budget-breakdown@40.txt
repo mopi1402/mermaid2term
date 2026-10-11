@@ -1,0 +1,11 @@
+               Q4 Budget
+
+            █████████████████████
+               45%     25%
+
+
+Engineering┃█████████▌  45.0%
+  Marketing┃█████▎  25.0%
+ Operations┃███▏  15.0%
+    Support┃██▏  10.0%
+      Other┃█   5.0%

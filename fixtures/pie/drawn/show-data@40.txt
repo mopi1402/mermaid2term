@@ -1,0 +1,10 @@
+       Support tickets this week
+
+                ██████████
+                42%
+
+
+        Billing┃████▏  41.8%  [128]
+Login and acce…┃███▏  30.7%  [94]
+    Bug reports┃██  19.9%  [61]
+Feature reques…┃█   7.5%  [23]

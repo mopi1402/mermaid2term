@@ -1,0 +1,27 @@
+             Roadmap Bets
+
+↑ Low Impact -> High Impact
+ ┌──────────────────┬──────────────────┐
+ │                  │                  │
+ │                  │                  │
+ │            ● Incremental layout     │
+ │                  │                  │
+ │              WebGPU renderer ●      │
+ │       Plan       │      Do now      │
+ │                  │                  │
+ │                  │                  │
+ │                  │                  │
+ │                  │                  │
+ ├──────────────────┼──────────────────┤
+ │         ● Theme presets             │
+ │                  │                  │
+ │                  │                  │
+ │                  │     Delegate     │
+ │       Drop  Legacy shim ●           │
+ │                  │                  │
+ │                  │                  │
+ │                  │                  │
+ │                  │                  │
+ └──────────────────┴──────────────────┘
+
+        Low Effort -> High Effort

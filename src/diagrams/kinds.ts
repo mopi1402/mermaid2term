@@ -5,15 +5,23 @@ import { ER_DIAGRAM } from "./erdiagram/kind.js";
 import { FLOWCHART } from "./flowchart/kind.js";
 import { GANTT } from "./gantt/kind.js";
 import { JOURNEY } from "./journey/kind.js";
+import { PACKET } from "./packet/kind.js";
+import { PIE } from "./piechart/kind.js";
+import { QUADRANT } from "./quadrant/kind.js";
 import { SEQUENCE } from "./sequence/kind.js";
 import { STATE_DIAGRAM } from "./statediagram/kind.js";
 import { TIMELINE } from "./timeline/kind.js";
+import { XY_CHART } from "./xychart/kind.js";
 
 const KINDS: readonly DiagramKind[] = [
   SEQUENCE,
   GANTT,
+  PIE,
+  PACKET,
+  XY_CHART,
   JOURNEY,
   TIMELINE,
+  QUADRANT,
   CLASS_DIAGRAM,
   ER_DIAGRAM,
 ];

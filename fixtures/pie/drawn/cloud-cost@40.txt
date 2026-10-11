@@ -1,0 +1,10 @@
+        Cloud Cost Composition
+
+              ███████████████████
+                38%  22% 18% 22%
+
+
+      Compute┃███████▎  38.0%
+      Storage┃████▏  22.0%
+Data Transfer┃███▍  18.0%
+Observability┃████▏  22.0%

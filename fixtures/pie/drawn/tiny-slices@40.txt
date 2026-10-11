@@ -1,0 +1,10 @@
+   Minutes in March by service state
+
+            █████████████████████
+                 Healthy 99%
+
+
+     Outage┃█   0.1%
+   Degraded┃█   0.2%
+Maintenance┃█   0.5%
+    Healthy┃████████████████████▉  99.1%

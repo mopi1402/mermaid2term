@@ -1,0 +1,12 @@
+                         Café & bakery sales
+
+                        ████████████████████████████████████████
+                          18%       34%       12%     21%    9%
+
+
+           Crème brûlée┃███████▎  18.0%
+Coffee: espresso, latte┃█████████████▋  34.0%
+ Tea %% green and black┃████▊  12.0%
+     C# workshop snacks┃██▍   6.0%
+           Croissants ♥┃████████▍  21.0%
+    Pain au chocolat 🥐┃███▋   9.0%
