@@ -1,0 +1,11 @@
+                         Shipped ✔    In review 🧪
+                             ╰──────┬───────╯
+                                    │
+                                 Rollout
+                                    │                    ╭─ Deutsch
+ العربية ─┬── Middle East ──── App locales ──── Europe ──┼─ Français
+   עברית ─╯                         │                    ╰─ Español: ES & LATAM
+                                  Asia
+                                    │
+                               ╭────┴────╮
+                            日本語    한국어

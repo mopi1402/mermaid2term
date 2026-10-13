@@ -1,0 +1,8 @@
+                      ╭─ Detection ────┬─ Alert routing
+                      │                ╰─ Signal correlation
+                      │
+ Incident Program ────┼─ Response ────┬─ Runbooks
+                      │               ╰─ Comms tree
+                      │
+                      ╰─ Learning ────┬─ Postmortems
+                                      ╰─ Action tracking

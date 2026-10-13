@@ -5,22 +5,28 @@ import { ER_DIAGRAM } from "./erdiagram/kind.js";
 import { FLOWCHART } from "./flowchart/kind.js";
 import { GANTT } from "./gantt/kind.js";
 import { JOURNEY } from "./journey/kind.js";
+import { KANBAN } from "./kanban/kind.js";
+import { MINDMAP } from "./mindmap/kind.js";
 import { PACKET } from "./packet/kind.js";
 import { PIE } from "./piechart/kind.js";
 import { QUADRANT } from "./quadrant/kind.js";
 import { SEQUENCE } from "./sequence/kind.js";
 import { STATE_DIAGRAM } from "./statediagram/kind.js";
 import { TIMELINE } from "./timeline/kind.js";
+import { TREEMAP } from "./treemap/kind.js";
 import { XY_CHART } from "./xychart/kind.js";
 
 const KINDS: readonly DiagramKind[] = [
   SEQUENCE,
   GANTT,
   PIE,
+  TREEMAP,
+  MINDMAP,
   PACKET,
   XY_CHART,
   JOURNEY,
   TIMELINE,
+  KANBAN,
   QUADRANT,
   CLASS_DIAGRAM,
   ER_DIAGRAM,

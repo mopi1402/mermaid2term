@@ -1,0 +1,4 @@
+                            Onboarding topics
+
+   Repos ─┬──── Codebase ──────── New joiner ──────── Access ────┬─ Laptop
+ Reviews ─╯                                                      ╰─ VPN

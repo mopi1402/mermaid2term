@@ -1,0 +1,7 @@
+ Q3 goals
+├─ Cut spend by 20%
+├─ Reliability
+│  ├─ 99.9% SLO
+│  └─ On-call rota
+└─ Hiring
+   └─ Two SREs

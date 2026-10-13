@@ -1,0 +1,3 @@
+                  ╭─ Square branch ──────── Leaf one
+ Central idea ────┤
+                  ╰─ Hexagon branch ──────── Leaf two

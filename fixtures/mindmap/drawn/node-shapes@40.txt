@@ -1,0 +1,11 @@
+ Data platform
+├─ Ingestion
+│  ├─ Kafka topics
+│  └─ Change capture
+├─ Storage
+│  ├─ Data lake
+│  └─ Warehouse
+└─ Serving
+   ├─ Query API
+   ├─ Admin API
+   └─ Dashboards

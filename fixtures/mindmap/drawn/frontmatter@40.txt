@@ -1,0 +1,7 @@
+          Onboarding topics
+
+              ╭─ Access ──┬─ Laptop
+ New joiner ──┤           ╰─ VPN
+              │
+              ╰─ Codebase ──┬─ Repos
+                            ╰─ Reviews

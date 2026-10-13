@@ -1,5 +1,9 @@
 import fs from "node:fs";
 import { declaredType, parse } from "../index.js";
+import { MINDMAP } from "../diagrams/mindmap/kind.js";
+import { mindmapWithIds } from "../diagrams/mindmap/parser.js";
+import { KANBAN } from "../diagrams/kanban/kind.js";
+import { kanbanWithIds } from "../diagrams/kanban/parser.js";
 import { withoutBom } from "../source/source.js";
 import { QUOTE, SAFE_QUOTE } from "../source/quotes.js";
 import { messageOf } from "../text/format.js";
@@ -26,7 +30,10 @@ export function readSource(args: Args): string | undefined {
 
 
 // The kinds that spell their ids their own way; every other one is read as a graph.
-const WITH_IDS: ReadonlyMap<string, (source: string) => string> = new Map();
+const WITH_IDS: ReadonlyMap<string, (source: string) => string> = new Map([
+  [MINDMAP.prefix, mindmapWithIds],
+  [KANBAN.prefix, kanbanWithIds],
+]);
 
 export function applyShowIds(source: string): string {
   const own = WITH_IDS.get(declaredType(source) ?? "");

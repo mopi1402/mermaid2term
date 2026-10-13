@@ -1,0 +1,7 @@
+ Pen and paper ─┬─── Tools ────── Root ────── Origins ───┬─ Long history
+       Mermaid ─╯                   │                    ╰─ Popularisation
+                                    │
+                                Research
+                                    │
+                         ╭──────────┴───────────╮
+                 On effectiveness     On automatic creation

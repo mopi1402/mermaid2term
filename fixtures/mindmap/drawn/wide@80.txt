@@ -1,0 +1,9 @@
+        Docs          Packaging
+          ╰───────┬───────╯
+                  │
+  Tests ─╮        │       ╭─ Parser
+         ├──── Engine ────┤
+ Themes ─╯        │       ╰─ Layout
+                  │
+          ╭───────┴────────╮
+      Renderer          Routing

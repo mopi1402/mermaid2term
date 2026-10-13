@@ -1,0 +1,16 @@
+ Product launch
+├─ Research
+│  ├─ Interviews
+│  └─ Competitors
+├─ Design
+│  ├─ Wireframes
+│  └─ Prototype
+├─ Build
+│  ├─ API
+│  └─ Web app
+├─ Marketing
+│  ├─ Blog post
+│  └─ Newsletter
+└─ Support
+   ├─ FAQ
+   └─ Training

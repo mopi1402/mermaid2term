@@ -1,0 +1,49 @@
+ Checkout migration
+├─ Discovery
+│  ├─ Service inventory
+│  │  ├─ Payments API
+│  │  ├─ Cart service
+│  │  └─ Pricing engine
+│  ├─ Traffic audit
+│  │  ├─ Black Friday peak
+│  │  └─ Nightly batch jobs
+│  └─ Dependencies
+│     ├─ Legacy ERP
+│     └─ Fraud scoring vendor
+├─ Infrastructure
+│  ├─ Kubernetes
+│  │  ├─ Cluster sizing
+│  │  ├─ Node pools
+│  │  └─ Autoscaling
+│  ├─ Networking
+│  │  ├─ Service mesh
+│  │  └─ Ingress
+│  └─ Data
+│     ├─ Postgres 16 upgrade
+│     ├─ Read replicas
+│     └─ Backup drills
+├─ Delivery
+│  ├─ CI pipelines
+│  ├─ Canary releases
+│  ├─ Feature flags
+│  └─ Rollback plan
+├─ Security
+│  ├─ Secrets vault
+│  ├─ PCI DSS scope
+│  └─ Pen test
+├─ Observability
+│  ├─ Metrics
+│  ├─ Tracing
+│  ├─ Log retention
+│  └─ SLOs
+│     ├─ Checkout p99
+│     └─ Error budget
+├─ People
+│  ├─ Squad owners
+│  ├─ On-call rotation
+│  └─ Runbook training
+└─ Cutover
+   ├─ Dress rehearsal
+   ├─ Code freeze
+   ├─ Go / no-go
+   └─ Hypercare

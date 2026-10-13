@@ -1,0 +1,11 @@
+ Offline sync          Public API          Reports          Localisation
+       ╰────────────────────┴───────┬─────────┴───────────────────╯
+                                    │
+                                    │          ╭─ Search ────┬─ Filters
+             Mobile app ─╮          │          │             ╰─ Saved queries
+                         │          │          │
+               Webhooks ─┼──── Release 4.0 ────┼─ Billing ──────── Invoices
+                         │          │          │
+        SAML ─┬──── SSO ─╯      Dark mode      ├─ Exports
+        OIDC ─╯                                │
+                                               ╰─ Audit log

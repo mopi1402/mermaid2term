@@ -1,0 +1,8 @@
+  Interviews ─┬── Research ─╮
+ Competitors ─╯             │
+                            │                    ╭─ Design ──┬─ Wireframes
+            API ─┬── Build ─┼── Product launch ──┤           ╰─ Prototype
+        Web app ─╯          │                    │
+                            │                    ╰─ Marketing ──┬─ Blog post
+          FAQ ─┬── Support ─╯                                   ╰─ Newsletter
+     Training ─╯

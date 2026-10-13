@@ -1,0 +1,7 @@
+ Central idea
+├─ Square branch
+│  └─ Leaf one
+├─ Hexagon branch
+├─ Rounded branch
+├─ Cloud branch
+└─ Bang branch

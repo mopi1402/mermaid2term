@@ -1,0 +1,14 @@
+ App locales
+├─ Europe
+│  ├─ Deutsch
+│  ├─ Français
+│  └─ Español: ES & LATAM
+├─ Asia
+│  ├─ 日本語
+│  └─ 한국어
+├─ Middle East
+│  ├─ العربية
+│  └─ עברית
+└─ Rollout
+   ├─ Shipped ✔
+   └─ In review 🧪

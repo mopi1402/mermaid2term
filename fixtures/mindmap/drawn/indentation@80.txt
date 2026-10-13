@@ -1,0 +1,6 @@
+                                Airport pickup
+                                       │
+                                   Car hire
+                                       │
+ Check-in 3 pm ────── Hotel ────── Trip plan ────── Flights ───┬─ Outbound
+                                                               ╰─ Return

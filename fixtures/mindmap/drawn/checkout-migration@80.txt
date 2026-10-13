@@ -1,0 +1,45 @@
+                                                            ╭─ Payments API
+                                     ╭─ Service inventory ──┼─ Cart service
+                                     │                      ╰─ Pricing engine
+                                     │
+                      ╭─ Discovery ──┼─ Traffic audit ──┬─ Black Friday peak
+                      │              │                  ╰─ Nightly batch jobs
+                      │              │
+                      │              ╰─ Dependencies ──┬─ Legacy ERP
+                      │                                ╰─ Fraud scoring vendor
+                      │
+                      │                                   ╭─ Cluster sizing
+                      │                   ╭─ Kubernetes ──┼─ Node pools
+                      │                   │               ╰─ Autoscaling
+                      │                   │
+                      ├─ Infrastructure ──┼─ Networking ──┬─ Service mesh
+                      │                   │               ╰─ Ingress
+                      │                   │
+                      │                   │         ╭─ Postgres 16 upgrade
+                      │                   ╰─ Data ──┼─ Read replicas
+                      │                             ╰─ Backup drills
+                      │
+                      │             ╭─ CI pipelines
+                      ├─ Delivery ──┼─ Canary releases
+ Checkout migration ──┤             ├─ Feature flags
+                      │             ╰─ Rollback plan
+                      │
+                      │             ╭─ Secrets vault
+                      ├─ Security ──┼─ PCI DSS scope
+                      │             ╰─ Pen test
+                      │
+                      │                  ╭─ Metrics
+                      │                  ├─ Tracing
+                      ├─ Observability ──┼─ Log retention
+                      │                  │
+                      │                  ╰─ SLOs ──┬─ Checkout p99
+                      │                            ╰─ Error budget
+                      │
+                      │           ╭─ Squad owners
+                      ├─ People ──┼─ On-call rotation
+                      │           ╰─ Runbook training
+                      │
+                      │            ╭─ Dress rehearsal
+                      ╰─ Cutover ──┼─ Code freeze
+                                   ├─ Go / no-go
+                                   ╰─ Hypercare

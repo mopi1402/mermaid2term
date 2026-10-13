@@ -1,0 +1,7 @@
+  Query API ─╮
+  Admin API ─┼── Serving ──── Data platform ──── Ingestion ──┬─ Kafka topics
+ Dashboards ─╯                      │                        ╰─ Change capture
+                                 Storage
+                                    │
+                              ╭─────┴──────╮
+                          Data lake    Warehouse
