@@ -1,0 +1,9 @@
+block-beta
+    columns 3
+    ingest["Ingest"] parse["Parse"] ir["Shared IR"]
+    layout["Layout"] render["Render"] out["SVG / Canvas / Term"]
+    ingest --> parse
+    parse --> ir
+    ir --> layout
+    layout --> render
+    render --> out

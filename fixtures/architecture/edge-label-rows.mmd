@@ -1,0 +1,7 @@
+architecture-beta
+    group g(cloud)[G]
+    service a(server)[A] in g
+    service b(server)[B]
+    service c(disk)[C] in g
+    a:R -[go<br>now]- L:b
+    a:B -[down<br>here<br>three]- T:c

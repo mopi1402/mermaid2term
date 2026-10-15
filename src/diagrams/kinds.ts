@@ -1,9 +1,12 @@
 import { announcing } from "../source/source.js";
 import type { DiagramKind, GraphKind } from "./@common/kind.js";
+import { ARCHITECTURE } from "./architecture/kind.js";
+import { BLOCK } from "./blockdiagram/kind.js";
 import { CLASS_DIAGRAM } from "./classdiagram/kind.js";
 import { ER_DIAGRAM } from "./erdiagram/kind.js";
 import { FLOWCHART } from "./flowchart/kind.js";
 import { GANTT } from "./gantt/kind.js";
+import { GITGRAPH } from "./gitgraph/kind.js";
 import { JOURNEY } from "./journey/kind.js";
 import { KANBAN } from "./kanban/kind.js";
 import { MINDMAP } from "./mindmap/kind.js";
@@ -18,7 +21,10 @@ import { XY_CHART } from "./xychart/kind.js";
 
 const KINDS: readonly DiagramKind[] = [
   SEQUENCE,
+  BLOCK,
+  GITGRAPH,
   GANTT,
+  ARCHITECTURE,
   PIE,
   TREEMAP,
   MINDMAP,

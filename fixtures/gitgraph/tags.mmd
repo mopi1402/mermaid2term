@@ -1,0 +1,9 @@
+gitGraph
+    commit id: "init"
+    commit id: "api-v1" tag: "v1.0.0"
+    branch release-1.1
+    commit id: "rate-limit"
+    commit id: "rc-fixes" tag: "v1.1.0-rc.1"
+    checkout main
+    merge release-1.1 id: "ship-1.1" tag: "v1.1.0"
+    commit id: "docs"

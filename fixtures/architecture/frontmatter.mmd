@@ -1,0 +1,14 @@
+---
+title: Read path
+config:
+  theme: neo
+  themeVariables:
+    archGroupBorderColor: "#9c36b5"
+    mainBkg: "#f3f0ff"
+    lineColor: "#9c36b5"
+---
+architecture-beta
+    group edge(cloud)[Edge]
+    service cdn(internet)[CDN] in edge
+    service api(server)[API] in edge
+    cdn:R --> L:api

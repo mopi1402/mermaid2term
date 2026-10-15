@@ -1,0 +1,12 @@
+gitGraph
+    commit id: "v2-base"
+    branch develop
+    commit id: "new-search"
+    commit id: "fix-login"
+    commit id: "refactor"
+    checkout main
+    cherry-pick id: "fix-login" tag: "v2.0.1"
+    checkout develop
+    commit id: "fix-timeout"
+    checkout main
+    cherry-pick id: "fix-timeout"

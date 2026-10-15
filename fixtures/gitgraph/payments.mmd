@@ -1,0 +1,15 @@
+gitGraph
+    commit id: "baseline"
+    branch payments-redesign
+    checkout payments-redesign
+    commit id: "pricing-api"
+    commit id: "checkout-ui"
+    checkout main
+    merge payments-redesign
+    commit id: "alpha-cut"
+    branch hotfix-tax
+    checkout hotfix-tax
+    commit id: "tax-fix"
+    checkout main
+    merge hotfix-tax
+    commit id: "alpha.1"

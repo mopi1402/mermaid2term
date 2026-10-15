@@ -1,0 +1,12 @@
+gitGraph
+    commit id: "init"
+    branch develop order: 3
+    commit id: "feature-x"
+    checkout main
+    branch release order: 2
+    commit id: "rc-1"
+    checkout main
+    branch hotfix order: 1
+    commit id: "patch"
+    checkout main
+    merge hotfix id: "v1.0.1"

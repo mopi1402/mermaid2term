@@ -1,0 +1,11 @@
+gitGraph
+    commit id: "init"
+    branch experiment
+    commit id: "new-cache"
+    checkout main
+    merge experiment id: "try-cache" type: HIGHLIGHT
+    commit id: "load-test"
+    branch revert-cache
+    commit id: "drop-cache"
+    checkout main
+    merge revert-cache type: REVERSE tag: "rollback" id: "undo-cache"

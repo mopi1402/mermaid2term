@@ -1,0 +1,8 @@
+block-beta
+    columns 3
+    a["Order total"] b("Invoice") c{{"Refund"}}
+    a --> b
+    style a fill:#ffd6d6,stroke:#e03131
+    classDef hot fill:#d6ffd6,color:#b00000,font-weight:bold
+    class c hot
+    style b text-decoration:underline,font-style:italic

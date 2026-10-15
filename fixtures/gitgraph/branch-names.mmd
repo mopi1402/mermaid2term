@@ -1,0 +1,12 @@
+gitGraph
+    commit id: "init"
+    branch feature/search-v2.1
+    commit id: "indexer"
+    switch main
+    branch "cherry-pick"
+    commit id: "backport"
+    checkout feature/search-v2.1
+    commit id: "ranking"
+    switch main
+    merge "cherry-pick" id: "backports"
+    merge feature/search-v2.1 id: "search-v2"
