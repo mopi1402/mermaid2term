@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>mermaid2term · playground</title>
+    <!-- The side is set BEFORE the first paint, so it cannot wait for a module. Twin of `src/background.ts`. -->
+    <script>
+      var chosen = null;
+      try {
+        chosen = localStorage.getItem("mermaid2term:background");
+      } catch (ignored) {
+        /* storage refused: follow the system */
+      }
+      var dark = chosen === "dark" || (chosen !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+      if (dark) document.documentElement.classList.add("dark");
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
