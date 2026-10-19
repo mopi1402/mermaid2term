@@ -1,0 +1,9 @@
+flowchart
+    O[🛒 Order] --> S[📦 Stock]
+    O -.->|async| L[📝 Audit Log]
+    O ==>|critical| P[💳 Payment]
+    S -->|low| R[🚚 Restock]
+    linkStyle 0 stroke:#22c55e
+    linkStyle 1 stroke:#8b5cf6,color:#8b5cf6
+    linkStyle 2 stroke:#ef4444,color:#ef4444
+    linkStyle 3 stroke:#f59e0b,color:#f59e0b
