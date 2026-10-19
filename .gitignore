@@ -6,3 +6,4 @@ dist/
 tmp/
 docs/checklist/
 .tayomi/reminders.md
+.vercel/
