@@ -1,6 +1,6 @@
 {
   "name": "@tayomi/mermaid2term",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Mermaid diagrams drawn as Unicode art in the terminal: eighteen diagram kinds, mermaid's own themes, no runtime dependency.",
   "keywords": [
     "mermaid",
