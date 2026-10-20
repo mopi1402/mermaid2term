@@ -37,7 +37,7 @@
     "./package.json": "./package.json"
   },
   "bin": {
-    "mermaid2term": "./dist/cli/main.js"
+    "mermaid2term": "dist/cli/main.js"
   },
   "sideEffects": [
     "./dist/cli/main.js"

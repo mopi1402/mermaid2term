@@ -60,6 +60,8 @@ jobs:
           }
 
       - run: pnpm install --frozen-lockfile
+      # npm drops a `bin` whose file is missing when it reads package.json, before prepack has built it
+      - run: pnpm build
 
       - name: npm
         run: |
@@ -67,6 +69,10 @@ jobs:
           if npm view "$name@${GITHUB_REF_NAME#v}" version 2>/dev/null | grep -q .; then
             echo "$name@${GITHUB_REF_NAME#v} is already on npm, skipping"
           else
+            if npm publish --dry-run 2>&1 | grep "auto-corrected"; then
+              echo "npm would rewrite package.json on publish, run npm pkg fix" >&2
+              exit 1
+            fi
             npm stage publish
           fi
 
