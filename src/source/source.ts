@@ -1,5 +1,6 @@
 import type { RenderOptions } from "../options.js";
 import { decodeEntities } from "../text/entities.js";
+import { CONTROL_RE } from "../text/chars.js";
 import { FRONTMATTER_RE } from "./lines.js";
 import { BORDER_MODES, flagOf, sourceConfig, type BorderMode, type Declared } from "./config.js";
 
@@ -9,6 +10,10 @@ const TITLE_KEY = "title";
 // falls through to the flowchart parser.
 const BOM = "﻿";
 export const withoutBom = (source: string): string => (source.startsWith(BOM) ? source.slice(BOM.length) : source);
+
+// Off before anything is read, so no label, title or link ever hands the terminal a sequence to run.
+const CONTROLS_RE = new RegExp(CONTROL_RE.source, "gu");
+export const printable = (source: string): string => source.replace(CONTROLS_RE, "");
 
 const LEADING_COMMENTS_RE = /^(?:[^\S\n]*(?:%%(?!\{)[^\n]*)?\n)*/u;
 

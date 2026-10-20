@@ -17,7 +17,7 @@ import { NEWLINE, NUL, SPACE } from "./text/chars.js";
 import { declaredKind, graphKind } from "./diagrams/kinds.js";
 import { overlaid, STILL, type Drawing, type ThemeFacts } from "./diagrams/@common/kind.js";
 import { blockOf, foldedTitle, seatOf, TITLE_GAP } from "./diagrams/@common/titled.js";
-import { announcing, configured, frontmatterTitle, headed, sourceSpacing } from "./source/source.js";
+import { announcing, configured, frontmatterTitle, headed, printable, sourceSpacing } from "./source/source.js";
 import { COMMENT } from "./source/lines.js";
 import { type Fit, oriented } from "./fit.js";
 import { widestLine } from "./text/width.js";
@@ -59,12 +59,12 @@ const sectionOf = (source: string): string => {
 };
 
 export function declaredType(source: string): string | undefined {
-  const text = headed(source);
+  const text = headed(printable(source));
   return declaredKind(text)?.prefix ?? (graphKind(text).declares(announcing(text)) ? graphKind(text).prefix : undefined);
 }
 
 export function parse(source: string): Graph {
-  const text = headed(source);
+  const text = headed(printable(source));
   return graphKind(text).parse(text);
 }
 
@@ -184,7 +184,8 @@ function kindTitle(source: string): string {
   return TITLE_LINE_RE.test(body) || HEADER_TITLE_RE.test(header) ? "" : title;
 }
 
-export function render(source: string, options: Options = {}): string {
+export function render(written: string, options: Options = {}): string {
+  const source = printable(written);
   const { width, height, background: _background, ...asked } = options;
   const renderOptions = { ...asked, ...sourceSpacing(source, sectionOf(source), DEFAULT_RENDER) };
   const { start, turns } = orientation(source, renderOptions);
@@ -206,7 +207,8 @@ export function render(source: string, options: Options = {}): string {
   return `${titleRows(title, body, width)}\n${body}`;
 }
 
-export function renderThemedText(source: string, options: Options = {}, theme: string = DEFAULT_THEME): Text {
+export function renderThemedText(written: string, options: Options = {}, theme: string = DEFAULT_THEME): Text {
+  const source = printable(written);
   const { width, height, background, ...asked } = options;
   const renderOptions = { ...asked, ...sourceSpacing(source, sectionOf(source), DEFAULT_RENDER) };
   const ground = groundOf(background ?? hostGround());

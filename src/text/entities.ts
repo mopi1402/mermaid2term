@@ -1,5 +1,5 @@
 import { must } from "../must.js";
-import { NBSP, NEWLINE, SPACE } from "./chars.js";
+import { CONTROL_RE, NBSP, NEWLINE, SPACE } from "./chars.js";
 import { namedCharacters } from "../tables/named-entities.js";
 
 const STYLE_LINE = /(?:style|classDef).*:\S*#/u;
@@ -13,6 +13,9 @@ const MAX_CODEPOINT = 0x10ffff;
 const HELD_FROM = 0x21;
 const HELD_TO = 0x7e;
 const HELD_AT = 0xe000;
+
+const drawable = (character: string | undefined): string | undefined =>
+  character === undefined || CONTROL_RE.test(character) ? undefined : character;
 
 function resolved(code: string): string | undefined {
   if (DECIMAL.test(code)) {
@@ -36,7 +39,7 @@ export function decodeEntities(text: string): string {
       STYLE_LINE.test(line)
         ? line
         : line.replace(ESCAPE, (whole, code: string) => {
-            const character = resolved(code);
+            const character = drawable(resolved(code));
             return character === undefined ? whole : heldOf(character);
           })
     )
@@ -65,7 +68,7 @@ function referenced(hex: string | undefined, decimal: string | undefined, name: 
 export const htmlDecoded = (text: string): string =>
   text.includes("&")
     ? text.replace(HTML_REFERENCE, (whole, hex?: string, decimal?: string, name?: string) => {
-        const character = referenced(hex, decimal, name);
+        const character = drawable(referenced(hex, decimal, name));
         return character === undefined ? whole : heldOf(character);
       })
     : text;
