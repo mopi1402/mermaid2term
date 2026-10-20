@@ -28,19 +28,52 @@ function ground(canvas: Canvas, r: number, c: number, fill: string, tail: string
 // wall (`@wall`) as it is, on its own ground, where `fillBand` swaps the wall of the frame it grounds.
 // `walls` and `rules` say how many cells the ground stands off the two pairs of borders: a border drawn on the OUTER
 // edge of its cell leaves the rest of that cell inside the frame and takes 0, one drawn on the inner edge takes 1.
-export function fillCluster(canvas: Canvas, x: number, y: number, width: number, height: number, walls: number, rules = 1): void {
-  if (width <= 2 || height <= 2) return;
+// It returns the cells it grounded, a hole the frame around it can skip.
+export function fillCluster(
+  canvas: Canvas, x: number, y: number, width: number, height: number, walls: number, rules = 1, holes: readonly CellRect[] = [],
+): CellRect | undefined {
+  if (width <= 2 || height <= 2) return undefined;
   const left = Math.max(0, x);
   const top = Math.max(0, y);
-  for (let r = top + rules; r < top + height - rules; r++) {
-    for (let c = left + walls; c < left + width - walls; c++) ground(canvas, r, c, SUBGRAPH_FILL, CLUSTER_TAIL);
+  const area = { left: left + walls, right: left + width - walls - 1, top: top + rules, bottom: top + height - rules - 1 };
+  const near = touching(holes, area);
+  for (let r = area.top; r <= area.bottom; r++) {
+    for (let c = area.left; c <= area.right; c++) {
+      const past = holeEnd(near, r, c);
+      if (past === undefined) ground(canvas, r, c, SUBGRAPH_FILL, CLUSTER_TAIL);
+      else c = past;
+    }
   }
+  return area;
+}
+
+// A rectangle of cells, bounds included.
+export interface CellRect { left: number; right: number; top: number; bottom: number }
+
+const touching = (holes: readonly CellRect[], area: CellRect): readonly CellRect[] =>
+  holes.filter((h) => h.left <= area.right && h.right >= area.left && h.top <= area.bottom && h.bottom >= area.top);
+
+// The last column of the hole a cell falls in. A hole is a ground already laid, which `ground` leaves as it is:
+// skipping it keeps deep nesting from grounding every inner rectangle again at each level.
+function holeEnd(holes: readonly CellRect[], r: number, c: number): number | undefined {
+  for (const h of holes) if (r >= h.top && r <= h.bottom && c >= h.left && c <= h.right) return h.right;
+  return undefined;
 }
 
 // A band of rows the cluster's own ground never reaches, laid FIRST so the fill that follows leaves it alone.
-export function fillBand(canvas: Canvas, left: number, right: number, top: number, bottom: number, fill: string, tail: string): void {
-  for (let r = Math.max(0, top); r <= bottom; r++) {
-    for (let c = Math.max(0, left); c <= right; c++) {
+// It returns the cells it grounded, a hole the frame around it can skip.
+export function fillBand(
+  canvas: Canvas, left: number, right: number, top: number, bottom: number, fill: string, tail: string, holes: readonly CellRect[] = [],
+): CellRect {
+  const area = { left: Math.max(0, left), right, top: Math.max(0, top), bottom };
+  const near = touching(holes, area);
+  for (let r = area.top; r <= bottom; r++) {
+    for (let c = area.left; c <= right; c++) {
+      const past = holeEnd(near, r, c);
+      if (past !== undefined) {
+        c = past;
+        continue;
+      }
       // A frame's wall carries the frame's ground in its own key (`@wall`), the cluster fill never reaching it. Inside
       // the band the frame's ground is the band's, so the tail is swapped. A box's wall (`@rim`) stands on the box's
       // fill and, like every other key that names a ground of its own, is left alone.
@@ -49,4 +82,5 @@ export function fillBand(canvas: Canvas, left: number, right: number, top: numbe
       else ground(canvas, r, c, fill, tail);
     }
   }
+  return area;
 }

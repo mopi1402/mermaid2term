@@ -11,7 +11,8 @@ import { SLAB_LEFT, SLAB_RIGHT, facingInside, slabRing } from "./slabs.js";
 import { ringCells } from "../../canvas/extent.js";
 import { drawTightFrame, groundedBorders } from "./tight.js";
 import { PAD_RULES } from "../../canvas/pad-glyphs.js";
-import { fillBand, fillCluster } from "../../canvas/cluster.js";
+import { fillBand, fillCluster, type CellRect } from "../../canvas/cluster.js";
+import { type Subgraph } from "../model.js";
 import {
   ALT_TAIL, BODY_TAIL, COMPOSITE_ALT_FILL, COMPOSITE_BODY_FILL, COMPOSITE_FRAME, COMPOSITE_TITLE_FILL, SLAB_TAIL, SUBGRAPH as STYLE_SUBGRAPH,
   BAND_MARK, INK_MARK, TITLE_TAIL, inkApart,
@@ -47,15 +48,31 @@ function depthOf(sb: SubgraphBounds): number {
   return depth;
 }
 
+interface Laid { cluster: CellRect[]; band: CellRect[] }
+
 export function fillSubgraphs(canvas: Canvas, layout: GridLayout): void {
   // The innermost frame first: each ground is laid where no other stands yet, so a nested body keeps its own.
   const inmostFirst = [...layout.subgraphBounds].sort((a, b) => depthOf(b) - depthOf(a));
+  // The grounds already laid by each frame's children. A band swaps the walls a cluster's ground leaves alone, so a
+  // band skips only the bands inside it.
+  const laid = new Map<Subgraph, Laid>();
+  const laidIn = (parent: Subgraph | undefined): Laid | undefined => {
+    if (parent === undefined) return undefined;
+    const known = laid.get(parent);
+    if (known !== undefined) return known;
+    const fresh: Laid = { cluster: [], band: [] };
+    laid.set(parent, fresh);
+    return fresh;
+  };
   for (const sb of inmostFirst) {
     const { walls, rules } = groundInsets(layout, sb.subgraph.id);
     fillTitleBand(canvas, sb, layout, walls, rules);
     const { subgraph } = sb;
+    const inside = laid.get(subgraph);
+    const around = laidIn(subgraph.parent);
     if (!subgraph.composite && !subgraph.concurrent) {
-      fillCluster(canvas, sb.x, sb.y, sb.width, sb.height, walls, rules);
+      const grounded = fillCluster(canvas, sb.x, sb.y, sb.width, sb.height, walls, rules, inside ? [...inside.cluster, ...inside.band] : []);
+      if (grounded !== undefined) around?.cluster.push(grounded);
       continue;
     }
     // A concurrent region is mermaid's `divider` rect, filled as the name's band is; a composite's body is its
@@ -67,7 +84,8 @@ export function fillSubgraphs(canvas: Canvas, layout: GridLayout): void {
         : [COMPOSITE_ALT_FILL, ALT_TAIL];
     const left = Math.max(0, sb.x);
     const top = Math.max(0, sb.y);
-    fillBand(canvas, left + walls, left + sb.width - 1 - walls, top + rules, top + sb.height - 1 - rules, fill, tail);
+    const grounded = fillBand(canvas, left + walls, left + sb.width - 1 - walls, top + rules, top + sb.height - 1 - rules, fill, tail, inside?.band);
+    around?.band.push(grounded);
   }
 }
 

@@ -1,17 +1,30 @@
 import { type Edge, type Graph } from "../model.js";
 import { boxesUnder } from "../subgraph-tree.js";
 import { type GridLayout, type SubgraphBounds } from "../layout/grid.js";
-import { cellId, NO_CELLS, type CellSet } from "./pathfinder.js";
+import { NO_CELLS, type CellSet } from "./pathfinder.js";
 import { subgraphMembers } from "./endpoints.js";
 
-export function computeSgRegions(layout: GridLayout, sgBounds: ReadonlyMap<string, SubgraphBounds>): Map<string, Set<string>> {
-  const regions = new Map<string, Set<string>>();
+// A frame's grid cells told by a rule: poured into a set per frame, nested frames spent a cell for every level they
+// sit in, cubic in the depth.
+function cellRect(minCol: number, maxCol: number, minRow: number, maxRow: number): CellSet {
+  return {
+    has: (cell) => {
+      const comma = cell.indexOf(",");
+      if (comma === -1) return false;
+      const c = Number(cell.slice(0, comma));
+      const r = Number(cell.slice(comma + 1));
+      return Number.isInteger(c) && Number.isInteger(r) && c >= minCol && c <= maxCol && r >= minRow && r <= maxRow;
+    },
+  };
+}
+
+export function computeSgRegions(layout: GridLayout, sgBounds: ReadonlyMap<string, SubgraphBounds>): Map<string, CellSet> {
+  const regions = new Map<string, CellSet>();
   for (const [id, sb] of sgBounds) {
     const members = subgraphMembers(sb, layout);
     if (members.length === 0) continue;
     const cols = members.map((p) => p.grid.col);
     const rows = members.map((p) => p.grid.row);
-    const region = new Set<string>();
     const right = sb.x + sb.width;
     const bottom = sb.y + sb.height;
     const lastCol = (): number => {
@@ -26,17 +39,14 @@ export function computeSgRegions(layout: GridLayout, sgBounds: ReadonlyMap<strin
     };
     const maxCol = lastCol();
     const maxRow = lastRow();
-    for (let c = Math.min(...cols) - 1; c <= maxCol; c++) {
-      for (let r = Math.min(...rows) - 1; r <= maxRow; r++) region.add(cellId(c, r));
-    }
-    regions.set(id, region);
+    regions.set(id, cellRect(Math.min(...cols) - 1, maxCol, Math.min(...rows) - 1, maxRow));
   }
   return regions;
 }
 
 // The boxes are named and never COPIED: poured into one set per edge, a drawing with big boxes spent every
 // foreign region again for each edge, for a question the search then asks of a few dozen cells.
-export function foreignSgCells(edge: Edge, graph: Graph, regions: Map<string, Set<string>>): CellSet {
+export function foreignSgCells(edge: Edge, graph: Graph, regions: ReadonlyMap<string, CellSet>): CellSet {
   if (regions.size === 0) return NO_CELLS;
 
   const allowed = new Set<string>();
@@ -61,7 +71,7 @@ export function foreignSgCells(edge: Edge, graph: Graph, regions: Map<string, Se
     }
   }
 
-  const foreign: Array<ReadonlySet<string>> = [];
+  const foreign: CellSet[] = [];
   for (const [id, region] of regions) if (!allowed.has(id)) foreign.push(region);
   if (foreign.length === 0) return NO_CELLS;
   return {
