@@ -69,7 +69,8 @@
     "playground": "pnpm --filter @tayomi/playground dev",
     "voir": "tsx scripts/voir.ts",
     "glyphs": "tsx scripts/glyphs.ts",
-    "eastasianwidth": "tsx scripts/eastasianwidth.ts"
+    "eastasianwidth": "tsx scripts/eastasianwidth.ts",
+    "postversion": "git push --follow-tags"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",
