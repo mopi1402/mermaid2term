@@ -1,6 +1,7 @@
 import { daySpellings, isExcludedDay, type Gantt } from "./model.js";
 import type { CivilDate } from "./dates.js";
 
+// A column is washed when the last day before the next column is excluded, read once per column whatever the span.
 export function excludedColumns(
   diagram: Gantt,
   earliest: CivilDate,
@@ -11,22 +12,19 @@ export function excludedColumns(
 ): Set<number> {
   const columns = new Set<number>();
   if (diagram.excludes.length === 0) return columns;
-  let runStart: CivilDate | undefined;
-  const close = (upTo: CivilDate): void => {
-    if (runStart === undefined) return;
-    const from = Math.max(first, columnOf(runStart));
-    const to = Math.min(end, columnOf(upTo));
-    for (let c = from; c < to; c++) columns.add(c);
-    runStart = undefined;
-  };
-  const last = Math.ceil(latest);
-  for (let day = Math.floor(earliest); day <= last; day++) {
-    if (isExcludedDay(diagram, day, daySpellings(day, diagram.dateFormat))) {
-      if (runStart === undefined) runStart = day;
-    } else {
-      close(day);
+  const lowest = Math.floor(earliest);
+  const highest = Math.ceil(latest) + 1;
+  for (let c = first; c < end; c++) {
+    if (columnOf(highest) <= c) break;
+    let lo = lowest;
+    let hi = highest;
+    while (lo < hi) {
+      const mid = Math.floor((lo + hi) / 2);
+      if (columnOf(mid) > c) hi = mid;
+      else lo = mid + 1;
     }
+    const day = lo - 1;
+    if (day >= lowest && isExcludedDay(diagram, day, daySpellings(day, diagram.dateFormat))) columns.add(c);
   }
-  close(last + 1);
   return columns;
 }

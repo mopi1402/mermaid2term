@@ -11,6 +11,8 @@ export const DAY_ONLY_AXIS_FORMAT = "%d";
 export const MIN_TICKS = 1;
 
 export const WIDTH_SAMPLES = 24;
+// 28 years, the cycle in which a year starts on every weekday, leap or not.
+export const WIDTH_WINDOW_DAYS = 28 * 365 + 7;
 
 export const LABEL_AIR = 1;
 export const MIN_LABEL = 2;

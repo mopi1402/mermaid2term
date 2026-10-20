@@ -5,6 +5,14 @@ import { words } from "../../text/format.js";
 const TOKEN_SPLIT_RE = /[\s,]+/;
 
 const MAX_PUSH_DAYS = 10_000;
+// The days the excludes walk takes over a whole chart, where mermaid walks every day of every task unbounded.
+const MAX_SETTLE_DAYS = 200_000;
+
+export interface SettleBudget {
+  left: number;
+}
+
+export const settleBudget = (): SettleBudget => ({ left: MAX_SETTLE_DAYS });
 
 export function endOfDuration(task: GanttTask): CivilDate | undefined {
   if (task.start === undefined) return undefined;
@@ -42,7 +50,7 @@ export function mergeTokens(into: string[], text: string): void {
   }
 }
 
-export function settleEnd(task: GanttTask, gantt: Gantt): void {
+export function settleEnd(task: GanttTask, gantt: Gantt, budget: SettleBudget): void {
   task.renderEnd = undefined;
   if (task.start === undefined || task.end === undefined || gantt.excludes.length === 0 || task.manualEnd) return;
   let day = task.start + 1;
@@ -51,6 +59,8 @@ export function settleEnd(task: GanttTask, gantt: Gantt): void {
   let invalid = false;
   let renderEnd: CivilDate | undefined;
   while (day <= end) {
+    budget.left -= 1;
+    if (budget.left < 0) return;
     if (!invalid) renderEnd = end;
     invalid = isExcludedDay(gantt, day, daySpellings(day, gantt.dateFormat));
     if (invalid) {

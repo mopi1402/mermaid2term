@@ -9,7 +9,7 @@ import {
 } from "./model.js";
 import { SECTION_WORD, TITLE_WORD, contentLines, headerBody, keywordRest } from "../../source/lines.js";
 import { openedIn } from "../@common/sections.js";
-import { endOfDuration, endUntil, mergeTokens, settleEnd, startAfter } from "./chain.js";
+import { endOfDuration, endUntil, mergeTokens, settleBudget, settleEnd, startAfter } from "./chain.js";
 import { FIELD, parseTask } from "./task.js";
 import { withoutAccessible } from "../@common/accessible.js";
 import { readClick, readTodayMarker } from "./statements.js";
@@ -59,6 +59,7 @@ export function parseGantt(text: string, said: Declared = {}): Gantt {
   const follows = new Map<GanttTask, GanttTask>();
   let previous: GanttTask | undefined;
   let taskCount = 0;
+  const budget = settleBudget();
   let generated = 0;
   // The header line's own statement, `gantt title X`, which mermaid's lexer reads after the keyword.
   const body = withoutAccessible(headerBody(lines, HEADER_RE));
@@ -141,7 +142,7 @@ export function parseGantt(text: string, said: Declared = {}): Gantt {
     if (!stripped.includes(FIELD) || THROWING_DATA_RE.test(stripped)) continue;
     const task = parseTask(stripped, { dateFormat: gantt.dateFormat, inclusive, nextId });
     if (task === undefined) continue;
-    settleEnd(task, gantt);
+    settleEnd(task, gantt, budget);
 
     section = openedIn(gantt.sections, section, () => makeGanttSection(""));
 
@@ -168,7 +169,7 @@ export function parseGantt(text: string, said: Declared = {}): Gantt {
         const end = task.until !== "" ? endUntil(task.until, byId) : endOfDuration(task);
         if (end === undefined) continue;
         task.end = end;
-        settleEnd(task, gantt);
+        settleEnd(task, gantt, budget);
         changed = true;
       }
     }

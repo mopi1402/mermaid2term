@@ -1,5 +1,6 @@
 import { displayWidth } from "../../text/width.js";
-import type { CivilDate } from "./dates.js";
+import { fromYMD, toYMD, type CivilDate } from "./dates.js";
+import { must } from "../../must.js";
 import { strftime } from "./strftime.js";
 import type { Gantt } from "./model.js";
 import type { Bar, Seated } from "./bars.js";
@@ -12,6 +13,7 @@ import {
   MIN_CHART_W,
   TICK_AIR,
   WIDTH_SAMPLES,
+  WIDTH_WINDOW_DAYS,
 } from "./metrics.js";
 
 export interface Scale {
@@ -26,6 +28,28 @@ export interface Scale {
   readonly dateAt: (day: CivilDate) => string;
   readonly columnOf: (day: CivilDate) => number;
   readonly extentOf: (bar: Bar) => Seated | undefined;
+}
+
+const atLeast = (year: number, modulo: number, floor: number): number => {
+  const rest = ((year % modulo) + modulo) % modulo;
+  return rest >= floor ? year : year - rest + floor;
+};
+
+// A long span read through its two ends and its first year of four digits and a two-digit century, 28 years each.
+function widestDate(dateAt: (day: CivilDate) => string, first: CivilDate, last: CivilDate): number {
+  let width = 0;
+  const scan = (from: CivilDate, to: CivilDate): void => {
+    for (let day = Math.max(from, first); day <= Math.min(to, last); day++) width = Math.max(width, displayWidth(dateAt(day)));
+  };
+  if (last - first <= 3 * WIDTH_WINDOW_DAYS) {
+    scan(first, last);
+    return width;
+  }
+  scan(first, first + WIDTH_WINDOW_DAYS);
+  scan(last - WIDTH_WINDOW_DAYS, last);
+  const wide = must(fromYMD(atLeast(atLeast(toYMD(first).year, 10_000, 1000), 100, 10), 1, 1));
+  scan(wide, wide + WIDTH_WINDOW_DAYS);
+  return width;
 }
 
 export function chartScale(diagram: Gantt, earliest: CivilDate, latest: CivilDate, labelWidth: number, width: number): Scale {
@@ -47,9 +71,7 @@ export function chartScale(diagram: Gantt, earliest: CivilDate, latest: CivilDat
       dateWidth = Math.max(dateWidth, displayWidth(dateAt(earliest + (i / WIDTH_SAMPLES) * span)));
     }
   } else {
-    for (let day = Math.floor(earliest); day <= Math.ceil(latest); day++) {
-      dateWidth = Math.max(dateWidth, displayWidth(dateAt(day)));
-    }
+    dateWidth = Math.max(dateWidth, widestDate(dateAt, Math.floor(earliest), Math.ceil(latest)));
   }
   const tickPitch = dateWidth + TICK_AIR;
   // The last date reaches half its width past its tick, so the axis stops that much short: at one less, every chart came out a column over its budget.
