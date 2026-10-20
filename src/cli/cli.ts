@@ -54,7 +54,7 @@ export async function main(argv: readonly string[]): Promise<number> {
   }
   if (args.demo !== undefined) return runDemo(args, useColor() ? await groundAsked(args) : undefined);
 
-  let source = readSource(args);
+  let source = await readSource(args);
   if (source === undefined) return FAILED;
 
   source = source.trim();

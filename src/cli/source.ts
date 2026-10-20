@@ -11,7 +11,15 @@ import { NEWLINE } from "../text/chars.js";
 import { PROGRAM, err } from "./exits.js";
 import type { Args } from "./args.js";
 
-export function readSource(args: Args): string | undefined {
+// A pipe's descriptor is non-blocking once the stream exists, so a sync read of it fails with EAGAIN on a slow writer.
+async function readStdin(): Promise<string> {
+  process.stdin.setEncoding("utf8");
+  let text = "";
+  for await (const chunk of process.stdin) text += String(chunk);
+  return text;
+}
+
+export async function readSource(args: Args): Promise<string | undefined> {
   if (args.file !== undefined) {
     try {
       return fs.readFileSync(args.file, "utf8");
@@ -21,7 +29,14 @@ export function readSource(args: Args): string | undefined {
       return undefined;
     }
   }
-  if (process.stdin.isTTY !== true) return fs.readFileSync(0, "utf8");
+  if (process.stdin.isTTY !== true) {
+    try {
+      return await readStdin();
+    } catch (e) {
+      err(`Error reading input: ${messageOf(e)}`);
+      return undefined;
+    }
+  }
   err("Error: No input provided. Pass a file or pipe input.");
   err(`Usage: ${PROGRAM} diagram.mmd`);
   err(`       echo 'graph LR; A-->B' | ${PROGRAM}`);
