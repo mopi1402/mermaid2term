@@ -15,8 +15,8 @@ const MIN_NUMBERED_COLS = 4;
 const LEGEND_SLACK = 10;
 const CANVAS_SLACK = 4;
 const LABEL_FRAME = 2;
-// mermaid stops splitting blocks into rows past `maxPacketSize` rows.
-const MAX_ROWS = 10_000;
+// mermaid stops splitting blocks into rows past `maxPacketSize` (10 000) rows; a terminal stops far sooner.
+const MAX_ROWS = 500;
 
 type Span = readonly [number, number, string];
 
