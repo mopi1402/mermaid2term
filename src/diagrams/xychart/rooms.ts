@@ -38,6 +38,8 @@ function measured(diagram: XYChart): { low: number; high: number; span: number; 
   const values = diagram.datasets.flatMap((ds) => ds.values.slice(0, points));
   if (values.length === 0) return undefined;
   const [low, high] = diagram.yRange ?? [Math.min(...values), Math.max(...values)];
+  // Values spread wider than a number holds have no scale to be drawn on.
+  if (!Number.isFinite(high - low)) return undefined;
   return { low, high, span: high - low === 0 ? 1 : high - low, points };
 }
 

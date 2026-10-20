@@ -181,8 +181,10 @@ function parseAxis(source: string, parts: readonly Spanned[], chart: XYChart, is
   if (low?.kind === "number" && arrow?.kind === "arrow" && high?.kind === "number") {
     if (taken > 0) setTitle(title);
     const bounds = [Number(low.text), Number(high.text)] as const;
-    if (isX) [chart.xCategories, chart.xRange] = [[], bounds];
-    else chart.yRange = bounds;
+    // A range too wide to hold as a number is left unwritten.
+    const held = Number.isFinite(bounds[1] - bounds[0]) ? bounds : undefined;
+    if (isX) [chart.xCategories, chart.xRange] = [[], held];
+    else chart.yRange = held;
     return;
   }
 
@@ -206,7 +208,7 @@ function parsePlot(parts: readonly Spanned[], chart: XYChart, chartType: "bar" |
   for (const item of splitOutsideQuotes(list.text, SEPARATOR)) {
     const point = POINT_RE.exec(item.trim()) ?? undefined;
     const value = point === undefined ? undefined : numberOf(point[1].replace(/^\++/, ""));
-    if (point === undefined || value === undefined) continue;
+    if (point === undefined || value === undefined || !Number.isFinite(value)) continue;
     values.push(value);
     pointLabels.push(point[2] ?? "");
   }

@@ -136,7 +136,8 @@ function renderVertical(diagram: XYChart, cs: CharSet, rounded: boolean, room?: 
     const style = plotStyle(plot);
     const values = ds.values.slice(0, points);
     if (ds.chartType === "line") {
-      const cells = values.map((value, i) => ({ row: headRows + rows - 1 - cellAt(reach(value)), col: columnLeftOf(i) + Math.floor(columnWidth / 2) }));
+      // A point past the canvas's top is held one row over it, its line still running off the edge.
+      const cells = values.map((value, i) => ({ row: Math.max(-1, headRows + rows - 1 - cellAt(reach(value))), col: columnLeftOf(i) + Math.floor(columnWidth / 2) }));
       const dots = values.map((value, i) => ({ x: dotsAcross(columnLeftOf(i)) + columnWidth, y: foot - dotAt(reach(value), DOTS_DOWN, rows) }));
       const points = plotLine(cells, dots, plot);
       asides.push(...pointLabels(ds.pointLabels, points, style, (cell, text) => {
@@ -149,7 +150,8 @@ function renderVertical(diagram: XYChart, cs: CharSet, rounded: boolean, room?: 
       const columnLeft = columnLeftOf(i);
       const { whole: bars, eighths } = eighthsRun(reach(value));
       const half = eighths > 0 && bars < rows;
-      for (let r = 0; r < bars + (half ? 1 : 0); r++) {
+      // A bar past the canvas's top stops at it.
+      for (let r = 0; r < Math.min(bars + (half ? 1 : 0), headRows + rows); r++) {
         const row = headRows + rows - 1 - r;
         // A top leaves the rest of its cell to an earlier bar there.
         const styleAt = (col: number): string => (r < bars ? style : onBarStyle(canvas, cs, row, col, plot, "top"));
@@ -220,7 +222,8 @@ function renderHorizontal(diagram: XYChart, cs: CharSet, rounded: boolean, room?
     const style = plotStyle(plot);
     const values = ds.values.slice(0, points);
     if (ds.chartType === "line") {
-      const cells = values.map((value, i) => ({ row: headRows + i * 2, col: marginLeft + 1 + cellAt(reach(value)) }));
+      // A point past the canvas's right edge is held one column beyond it.
+      const cells = values.map((value, i) => ({ row: headRows + i * 2, col: Math.min(canvas.width, marginLeft + 1 + cellAt(reach(value))) }));
       const dots = values.map((value, i) => ({ x: dotsAcross(marginLeft + 1) + dotAt(reach(value), DOTS_ACROSS, plotWidth), y: dotsDown(headRows + i * 2) + 1 }));
       const points = plotLine(cells, dots, plot);
       asides.push(...pointLabels(ds.pointLabels, points, style, (cell, text) => [
