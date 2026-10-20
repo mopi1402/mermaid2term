@@ -25,8 +25,12 @@ Its syntax and config keys, its 11 themes, and a light-terminal mirror of each.
 **✨ Fits the width you give it.**  
 The drawing is redrawn tighter as far as it can go, never squeezed out of shape. Past that, the command says so.
 
-**✨ Zero runtime dependency.**  
-Node 22 or later, nothing else.
+**✨ Zero dependency.**  
+Rewritten from scratch, Node 22 alone. mermaid pulls in 110 packages.
+
+## Try it
+
+The [playground](https://mermaid2term.vercel.app) draws the source you type beside mermaid's own rendering, nothing to install.
 
 ## Install
 
