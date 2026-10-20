@@ -1,6 +1,6 @@
 import type { RenderOptions } from "../options.js";
 import { decodeEntities } from "../text/entities.js";
-import { CONTROL_RE } from "../text/chars.js";
+import { LINE_END_RE, NEWLINE, withoutControls } from "../text/chars.js";
 import { FRONTMATTER_RE } from "./lines.js";
 import { BORDER_MODES, flagOf, sourceConfig, type BorderMode, type Declared } from "./config.js";
 
@@ -12,8 +12,10 @@ const BOM = "﻿";
 export const withoutBom = (source: string): string => (source.startsWith(BOM) ? source.slice(BOM.length) : source);
 
 // Off before anything is read, so no label, title or link ever hands the terminal a sequence to run.
-const CONTROLS_RE = new RegExp(CONTROL_RE.source, "gu");
-export const printable = (source: string): string => source.replace(CONTROLS_RE, "");
+export const printable = (source: string): string => withoutControls(source.replace(LINE_END_RE, NEWLINE));
+// A parser handed out as is reads its source as `render` reads it, every control already off.
+export const printed = <Rest extends unknown[], Parsed>(parse: (text: string, ...rest: Rest) => Parsed) =>
+  (text: string, ...rest: Rest): Parsed => parse(printable(text), ...rest);
 
 const LEADING_COMMENTS_RE = /^(?:[^\S\n]*(?:%%(?!\{)[^\n]*)?\n)*/u;
 
@@ -147,7 +149,10 @@ export function configured(source: string, options: Partial<RenderOptions>, sect
 // mermaid 12's `flowchart.padding` default, in px: state, kanban and architecture draw nothing different for their own.
 const PADDING_KEY = "padding";
 const FLOWCHART_PADDING_PX = 15;
-const scaledPadding = (px: number, cells: number): number => Math.max(0, Math.round((px / FLOWCHART_PADDING_PX) * cells));
+// A padding past this many cells only buys a slower fit: the boxes it pads would outgrow any screen.
+export const MAX_PADDING_CELLS = 20;
+const scaledPadding = (px: number, defaultPx: number, cells: number): number =>
+  Math.min(MAX_PADDING_CELLS, Math.max(0, Math.round((px / defaultPx) * cells)));
 
 const pxOf = (said: string | undefined): number => {
   const trimmed = said?.trim() ?? "";
@@ -168,11 +173,11 @@ export function sourceSpacing(source: string, section: string, cells: Pick<Rende
   const read: Partial<RenderOptions> = {};
   const px = pxOf(own[PADDING_KEY]);
   if (section === FLOWCHART_SECTION && Number.isFinite(px)) {
-    read.paddingX = scaledPadding(px, cells.paddingX);
-    read.paddingY = scaledPadding(px, cells.paddingY);
+    read.paddingX = scaledPadding(px, FLOWCHART_PADDING_PX, cells.paddingX);
+    read.paddingY = scaledPadding(px, FLOWCHART_PADDING_PX, cells.paddingY);
   }
   if (section === BLOCK_SECTION && Number.isFinite(px)) {
-    read.paddingX = Math.max(0, Math.round((px / BLOCK_PADDING_PX) * BLOCK_PADDING_CELLS));
+    read.paddingX = scaledPadding(px, BLOCK_PADDING_PX, BLOCK_PADDING_CELLS);
   }
   // mermaid 12 spaces the boxes by `nodeSpacing` and the ranks by `rankSpacing` under dagre alone, its default
   // `elk` and the class diagram ignoring both.

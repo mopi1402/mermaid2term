@@ -1,5 +1,4 @@
-import { NEWLINE } from "../text/chars.js";
-import { stripControlCodes } from "./cells.js";
+import { NEWLINE, withoutControls } from "../text/chars.js";
 import { Text } from "./text.js";
 
 // A drawing's text known at once and its styles laid only when asked: the fit weighs every try by its text and
@@ -10,7 +9,7 @@ export interface Painting {
 }
 
 export function painting(lines: readonly string[], lay: (text: Text) => void): Painting {
-  const plain = stripControlCodes(lines.join(NEWLINE));
+  const plain = withoutControls(lines.join(NEWLINE));
   let laid: Text | undefined;
   return {
     plain,

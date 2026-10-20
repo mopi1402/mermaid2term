@@ -1,6 +1,6 @@
 import { drawnChar } from "../text/entities.js";
 import { glyphsOf, isWideGlyph } from "../text/width.js";
-import { NEWLINE, SPACE } from "../text/chars.js";
+import { CONTROL_RE, NEWLINE, SPACE, TAB } from "../text/chars.js";
 import { DEFAULT_STYLE } from "./keys.js";
 import { SHADOW, directionsOf } from "./merge.js";
 import { glyphOfArms } from "./corners.js";
@@ -80,7 +80,7 @@ export class Canvas {
   // writing a word with spaces in it each has its own call for that reason.
   put(row: number, col: number, ch: string, merge = true, style = ""): void {
     ch = drawnChar(ch);
-    if (!this.inside(row, col) || ch === SPACE) return;
+    if (!this.inside(row, col) || ch === SPACE || ch === TAB || CONTROL_RE.test(ch)) return;
     if (this.holdsText(row, col, ch)) return;
 
     const newDirs = directionsOf(ch);
@@ -124,7 +124,7 @@ export class Canvas {
 
   putText(row: number, col: number, text: string, style = ""): void {
     let offset = 0;
-    const glyphs = glyphsOf(text);
+    const glyphs = glyphsOf(text.replaceAll(TAB, SPACE));
     const first = glyphs.findIndex((ch) => ch !== SPACE);
     const last = glyphs.length - 1 - [...glyphs].reverse().findIndex((ch) => ch !== SPACE);
     glyphs.forEach((ch, i) => {
@@ -136,7 +136,7 @@ export class Canvas {
 
   putStyledText(row: number, col: number, segments: Array<readonly [string, string]>): void {
     let offset = 0;
-    for (const [text, style] of segments) for (const ch of glyphsOf(text)) offset += this.writeGlyph(row, col + offset, ch, style, false);
+    for (const [text, style] of segments) for (const ch of glyphsOf(text.replaceAll(TAB, SPACE))) offset += this.writeGlyph(row, col + offset, ch, style, false);
   }
 
   // One glyph of a text, the columns it takes returned: a wide one leaves a shadow in the cell after it.

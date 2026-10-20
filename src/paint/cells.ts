@@ -1,5 +1,4 @@
 import { displayWidth } from "../text/width.js";
-import { must } from "../must.js";
 import { NEWLINE, SPACE, TAB } from "../text/chars.js";
 
 export interface Cell {
@@ -10,9 +9,6 @@ export interface Cell {
   readonly owner?: string;
 }
 
-const STRIPPED_CONTROL: ReadonlySet<number> = new Set([0x07, 0x08, 0x0b, 0x0c, 0x0d]);
-export const stripControlCodes = (text: string): string =>
-  [...text].filter((ch) => !STRIPPED_CONTROL.has(must(ch.codePointAt(0)))).join("");
 
 export const NO_CELL_STYLE = "";
 const TAB_SIZE = 8;

@@ -1,4 +1,4 @@
-import { NEWLINE } from "../text/chars.js";
+import { NEWLINE, withoutControls } from "../text/chars.js";
 import type { Background } from "../colour/background.js";
 import { renderCells } from "./emit.js";
 import { STYLE_SEPARATOR, UNDERLINE } from "./tokens.js";
@@ -10,7 +10,6 @@ import {
   divideLine,
   expandTabs,
   rstripEnd,
-  stripControlCodes,
   splitCells,
   type Cell,
 } from "./cells.js";
@@ -20,7 +19,7 @@ export class Text {
   private painted = false;
 
   constructor(plain: string) {
-    this.cells = [...stripControlCodes(plain)].map((ch) => ({ ch, style: NO_CELL_STYLE }));
+    this.cells = [...withoutControls(plain)].map((ch) => ({ ch, style: NO_CELL_STYLE }));
   }
 
   paintedForGround(): Text {

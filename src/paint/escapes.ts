@@ -1,5 +1,6 @@
 import type { RGB } from "../colour/rgb.js";
 import { must } from "../must.js";
+import { withoutControls } from "../text/chars.js";
 
 export const ESC = "\x1b";
 export const BEL = "\x07";
@@ -53,7 +54,7 @@ export const truecolorCodes = (rgb: RGB, foreground: boolean): string[] => [
 ];
 
 const HYPERLINK = `${OSC}8;;`;
-export const hyperlinkOpen = (url: string): string => `${HYPERLINK}${url}${ST}`;
+export const hyperlinkOpen = (url: string): string => `${HYPERLINK}${withoutControls(url)}${ST}`;
 export const HYPERLINK_CLOSE = `${HYPERLINK}${ST}`;
 
 const asPattern = (text: string): string => text.replace(/[\\^$.*+?()[\]{}|]/gu, "\\$&");
