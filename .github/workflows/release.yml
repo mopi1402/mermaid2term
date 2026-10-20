@@ -1,8 +1,9 @@
 name: release
 
-# Pushing a tag `vX.Y.Z` publishes the package on npm (trusted publishing, no
-# stored token) unless that version is already there, then publishes a GitHub
-# release whose notes are the `## X.Y.Z` section of CHANGELOG.md.
+# Pushing a tag `vX.Y.Z` stages the package on npm (trusted publishing, no
+# stored token, public once a maintainer approves it with 2FA) unless that
+# version is already there, then publishes a GitHub release whose notes are the
+# `## X.Y.Z` section of CHANGELOG.md.
 
 on:
   push:
@@ -66,7 +67,7 @@ jobs:
           if npm view "$name@${GITHUB_REF_NAME#v}" version 2>/dev/null | grep -q .; then
             echo "$name@${GITHUB_REF_NAME#v} is already on npm, skipping"
           else
-            npm publish
+            npm stage publish
           fi
 
       - run: gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes-file notes.md
