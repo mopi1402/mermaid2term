@@ -16,7 +16,7 @@ export interface Chars {
   tjL: string;
   // The glyph a cell wears for its arms, `UP | DOWN | LEFT | RIGHT`.
   armed: (arms: number) => string;
-  icons: Readonly<Record<string, string>>;
+  icons: ReadonlyMap<string, string>;
   wrap: number;
   // The extra columns every joint and every gap between siblings takes where the budget has room for them.
   spread: number;

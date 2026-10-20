@@ -145,7 +145,7 @@ export interface CharSet {
   braceStem: string;
   medallions: readonly string[];
   discDigits: readonly string[];
-  icons: Readonly<Record<string, string>>;
+  icons: ReadonlyMap<string, string>;
 }
 // jscpd:ignore-end
 

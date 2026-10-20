@@ -149,7 +149,7 @@ export const UNICODE: CharSet = {
   braceStem: "\u23aa",
   medallions: [..."\u2776\u2777\u2778\u2779\u277a\u277b\u277c\u277d\u277e\u277f\u24eb\u24ec\u24ed\u24ee\u24ef\u24f0\u24f1\u24f2\u24f3\u24f4"],
   discDigits: [..."\u24ff\u2776\u2777\u2778\u2779\u277a\u277b\u277c\u277d\u277e"],
-  icons: { cloud: "\u2601 ", database: "\u{1f5c4} ", disk: "\u{1f4be} ", server: "\u{1f5a5} ", internet: "\u{1f310} " },
+  icons: new Map([["cloud", "\u2601 "], ["database", "\u{1f5c4} "], ["disk", "\u{1f4be} "], ["server", "\u{1f5a5} "], ["internet", "\u{1f310} "]]),
 };
 
 export const COMPAT: CharSet = {
@@ -187,7 +187,7 @@ export const COMPAT: CharSet = {
   drum: { ...UNICODE.drum, tie: BLOCK.upperEighth, undertie: BLOCK.lowerEighth },
   medallions: [..."\u2460\u2461\u2462\u2463\u2464\u2465\u2466\u2467\u2468\u2469\u246a\u246b\u246c\u246d\u246e\u246f\u2470\u2471\u2472\u2473"],
   discDigits: [..."\u24ea\u2460\u2461\u2462\u2463\u2464\u2465\u2466\u2467\u2468"],
-  icons: { cloud: "\u25cb ", database: "\u25a0 ", disk: "\u25cf ", server: "\u25aa ", internet: "\u25ce " },
+  icons: new Map([["cloud", "\u25cb "], ["database", "\u25a0 "], ["disk", "\u25cf "], ["server", "\u25aa "], ["internet", "\u25ce "]]),
 };
 
 export const DEFAULT_CHARSET = "unicode";

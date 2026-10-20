@@ -22,15 +22,15 @@ export const chipRows = (rows: readonly Row[], key: string): Row[] =>
 
 export const rowWidth = (row: Row): number => segmentsWidth(row);
 
-function iconGlyph(icon: string | undefined, icons: Readonly<Record<string, string>>): string {
+function iconGlyph(icon: string | undefined, icons: ReadonlyMap<string, string>): string {
   if (icon === undefined) return "";
   const name = (icon.split(/\s+/u).pop() ?? "").replace(ICON_PREFIX_RE, "");
-  return icons[name] ?? "";
+  return icons.get(name) ?? "";
 }
 
 // Every mindmap node is `labelType: 'markdown'` in mermaid: bold and italic read with or without the fence,
 // `<br>` and a line end inside a string break the text, and the icon, where a glyph stands for it, leads it.
-export function labelRows(node: MindmapNode, icons: Readonly<Record<string, string>>, cap: number): Row[] {
+export function labelRows(node: MindmapNode, icons: ReadonlyMap<string, string>, cap: number): Row[] {
   const glyph = iconGlyph(node.icon, icons);
   // The glyph wraps with the first line's words, so its width counts in the cap; mermaid wraps at `maxNodeWidth`.
   return richRows(node.label).flatMap((runs, at) => wrapSegments(at === 0 && glyph !== "" ? [run(glyph), ...runs] : runs, cap));

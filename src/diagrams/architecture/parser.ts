@@ -35,7 +35,7 @@ const ALIGN_ROW = "row";
 
 const labelOf = (prefix: string, title: string): string => (title === "" ? prefix.trimEnd() : prefix + title);
 
-function readArchitecture(text: string, icons: Readonly<Record<string, string>>): ArchitectureModel {
+function readArchitecture(text: string, icons: ReadonlyMap<string, string>): ArchitectureModel {
   const lines = contentLines(text);
   const graph = new Graph();
   graph.direction = Direction.TB;
@@ -59,7 +59,7 @@ function readArchitecture(text: string, icons: Readonly<Record<string, string>>)
     const group = GROUP_RE.exec(stripped) ?? undefined;
     if (group !== undefined) {
       const id = group[1];
-      const sg = makeSubgraph(id, labelOf(icons[group[2] ?? ""] ?? "", boxLabel(group[3] ?? "")), { titleLeft: true });
+      const sg = makeSubgraph(id, labelOf(icons.get(group[2] ?? "") ?? "", boxLabel(group[3] ?? "")), { titleLeft: true });
       const parent = group[4] === undefined ? undefined : groups.get(group[4]);
       if (parent !== undefined) {
         parent.children.push(sg);
@@ -74,7 +74,7 @@ function readArchitecture(text: string, icons: Readonly<Record<string, string>>)
     const service = SERVICE_RE.exec(stripped) ?? undefined;
     if (service !== undefined) {
       const id = service[1];
-      const icon = service[2] === undefined ? icons[service[3] ?? ""] ?? "" : `${service[2]} `;
+      const icon = service[2] === undefined ? icons.get(service[3] ?? "") ?? "" : `${service[2]} `;
       graph.addNode(makeNode(id, labelOf(icon, boxLabel(service[4] ?? "")), { shape: NodeShape.RECTANGLE }));
       place(id, service[5]);
       continue;
@@ -136,6 +136,6 @@ function readArchitecture(text: string, icons: Readonly<Record<string, string>>)
   return model;
 }
 
-export function parseArchitecture(text: string, icons: Readonly<Record<string, string>> = UNICODE.icons): Graph {
+export function parseArchitecture(text: string, icons: ReadonlyMap<string, string> = UNICODE.icons): Graph {
   return layOutArchitecture(readArchitecture(text, icons));
 }
