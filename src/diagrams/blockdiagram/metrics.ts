@@ -9,6 +9,9 @@ export const ROW_GAP = 2;
 export const MARGIN = 2;
 export const GROUP_PAD = 2;
 export const BORDERS = 2;
+// Far past what a terminal shows, they keep an absurd column count or padding from filling memory.
+export const MAX_COLUMNS = 100;
+export const MAX_BLOCK_PAD = 100;
 
 export const MIN_CANVAS_W = 20;
 export const MIN_CANVAS_H = 5;

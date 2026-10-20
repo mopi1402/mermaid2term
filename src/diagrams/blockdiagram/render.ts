@@ -2,7 +2,7 @@ import { Canvas } from "../../canvas/canvas.js";
 import { type CharSet } from "../../canvas/model.js";
 import { UNICODE } from "../../canvas/charsets.js";
 import type { BlockDiagram } from "./model.js";
-import { BLOCK_PAD, COL_GAP, MARGIN, MIN_CANVAS_H, MIN_CANVAS_W, type Placed, type Sized } from "./metrics.js";
+import { BLOCK_PAD, COL_GAP, MARGIN, MAX_BLOCK_PAD,MIN_CANVAS_H, MIN_CANVAS_W, type Placed, type Sized } from "./metrics.js";
 import { columnGaps, computeAllSizes, computePositions, rowGaps, sizedGrid } from "./layout.js";
 import { drawBlocks, drawGroups, drawLinkTees, drawLinks } from "./draw.js";
 import { boardOf } from "./route.js";
@@ -24,7 +24,7 @@ export function renderBlockDiagram(
   if (diagram.blocks.length === 0) return new Canvas(1, 1);
 
   const sizes: Sized = new Map();
-  computeAllSizes(diagram.blocks, sizes, paddingX, gap);
+  computeAllSizes(diagram.blocks, sizes, Math.min(paddingX, MAX_BLOCK_PAD), gap);
 
   const { columns, grid, colWidths, rowHeights } = sizedGrid(diagram.blocks, diagram.columns, sizes, gap);
   const colGaps = columnGaps(grid, diagram.links, columns, gap);

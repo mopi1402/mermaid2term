@@ -8,6 +8,7 @@ import {
   COL_GAP,
   GROUP_PAD,
   MARGIN,
+  MAX_COLUMNS,
   MIN_BLOCK_H,
   MIN_BLOCK_W,
   ROW_GAP,
@@ -78,7 +79,9 @@ export function computeAllSizes(blocks: Block[], sizes: Sized, paddingX: number,
 
 // The grid `blocks` are laid in, `declared` columns wide or as wide as their spans, and its track sizes.
 export function sizedGrid(blocks: Block[], declared: number, sizes: Sized, colGap: number): { columns: number; grid: Grid; colWidths: number[]; rowHeights: number[] } {
-  const columns = declared > 0 ? declared : spanned(blocks);
+  const reach = spanned(blocks);
+  // As in mermaid, a grid is never wider than its blocks reach; past that, a bound keeps memory in hand.
+  const columns = Math.min(declared > 0 ? Math.min(declared, Math.max(reach, 1)) : reach, MAX_COLUMNS);
   const grid = layoutGrid(blocks, columns);
   const [colWidths, rowHeights] = gridDimensions(grid, columns, sizes, colGap);
   return { columns, grid, colWidths, rowHeights };
