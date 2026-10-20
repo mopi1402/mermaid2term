@@ -35,10 +35,16 @@ export function readThemeText(read: MermaidThemeText, over: ScaleBase = {}): The
 // A list of colours, `plotColorPalette`, is read entry by entry.
 const PALETTES: ReadonlySet<string> = new Set(["plotColorPalette"]);
 const LIST_JOIN = ",";
-const spendable = (name: string, written: string): string =>
-  PALETTES.has(name)
-    ? written.split(LIST_JOIN).map((entry) => cssColour(entry.trim()) ?? entry).join(LIST_JOIN)
-    : (cssColour(written) ?? written);
+// A value naming no colour is left out, as mermaid leaves an invalid colour unpainted.
+const colourOf = (written: string): string | undefined => (themeRgb(written) === undefined ? undefined : cssColour(written));
+// The variables that hold a width rather than a colour, read as numbers and never as a style.
+const MEASURES: ReadonlySet<string> = new Set(["archEdgeWidth", "archGroupBorderWidth"]);
+const spendable = (name: string, written: string): string | undefined => {
+  if (MEASURES.has(name)) return written;
+  if (!PALETTES.has(name)) return colourOf(written);
+  const entries = written.split(LIST_JOIN).flatMap((entry) => colourOf(entry.trim()) ?? []);
+  return entries.length === 0 ? undefined : entries.join(LIST_JOIN);
+};
 
 // The scale a `cScale3:` line writes into: the theme being dressed, never the bare one. mermaid states each band
 // under its own key, so a name left unwritten keeps the colour the theme gives it.
@@ -112,6 +118,7 @@ export function themeVariablesFrom(said: ReadonlyMap<string, string>, over: Scal
       continue;
     }
     const value = NO_COLOUR.has(text.toLowerCase()) ? BARE : spendable(name, text);
+    if (value === undefined) continue;
     const seated = SEAT_PREFIXES.map(([prefix, list]) => [seatOf(name, prefix), list] as const).find(([at]) => at !== undefined);
     if (seated !== undefined) {
       const [at, list] = seated;
