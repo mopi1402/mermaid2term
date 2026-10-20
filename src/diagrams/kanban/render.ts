@@ -1,7 +1,7 @@
 import { type CharSet } from "../../canvas/model.js";
 import { UNICODE } from "../../canvas/charsets.js";
 import type { Kanban, KanbanCard, KanbanColumn } from "./model.js";
-import { centredAt, displayWidth, longestWord, truncateToWidth, widestOf } from "../../text/width.js";
+import { centredAt, displayWidth, longestWord, truncateToWidth, truncatedWidths, widestOf } from "../../text/width.js";
 import { Canvas, EMPTY_SIZE } from "../../canvas/canvas.js";
 import { DEEP_SUFFIX, INK_MARK, OUT_TAIL, RIM_TAIL, SECTION_PREFIX, SLAB_TAIL, indexed } from "../../canvas/keys.js";
 import { widenBox } from "../../canvas/fit-frame.js";
@@ -9,7 +9,7 @@ import { edgesOf, spanOf, type Edges } from "../../canvas/extent.js";
 import { slabOutline } from "../../graph/render/slabs.js";
 import { type BorderMode } from "../../source/config.js";
 import { cornersOf } from "../../canvas/corners.js";
-import { richRows, wrapSegments, type LabelSegment } from "../../source/markdown.js";
+import { foldingOf, richRows, wrapSegments, type Folding, type LabelSegment } from "../../source/markdown.js";
 import { putSegments } from "../../canvas/rich.js";
 import { fillInterior, frame } from "../../canvas/shape-frame.js";
 
@@ -55,6 +55,24 @@ const shownRows = (text: string, room: number): ShownRow[] =>
 
 const widestRow = (text: string, room: number): number => widestOf(shownRows(text, room).map((row) => row.plain));
 
+type Measure = (text: string, room: number) => number;
+
+// `widestRow`, each text read once and folded on its running widths: the width fit measures a title at every room.
+function widestRows(): Measure {
+  const folds = new Map<string, Folding[]>();
+  const cuts = new Map<string, (room: number) => number>();
+  const cutWidth = (plain: string, room: number): number => {
+    const cut = cuts.get(plain) ?? truncatedWidths(plain);
+    cuts.set(plain, cut);
+    return cut(room);
+  };
+  return (text, room) => {
+    const rows = folds.get(text) ?? richRows(text).map(foldingOf);
+    folds.set(text, rows);
+    return Math.max(0, ...rows.flatMap((fold) => fold(room)).map((row) => (row.width <= room ? row.width : cutWidth(row.plain(), room))));
+  };
+}
+
 // A row held whole keeps its weights, a row cut to `room` is written plain.
 function putRow(canvas: Canvas, row: number, col: number, shown: ShownRow, room: number, style: string, centred: number | undefined): void {
   const fits = displayWidth(shown.plain) <= room;
@@ -71,9 +89,9 @@ const infoWidth = (card: KanbanCard): number =>
 
 const UNBOUND = Number.POSITIVE_INFINITY;
 
-function columnWidth(col: KanbanColumn, paddingX: number, room: number): number {
-  const titleWidth = widestRow(col.title, titleRoom(room));
-  const cardWidths = col.cards.map((card) => Math.max(widestRow(card.title, room), Math.min(infoWidth(card), room)));
+function columnWidth(col: KanbanColumn, paddingX: number, room: number, measure: Measure = widestRow): number {
+  const titleWidth = measure(col.title, titleRoom(room));
+  const cardWidths = col.cards.map((card) => Math.max(measure(card.title, room), Math.min(infoWidth(card), room)));
   const cardWidth = cardWidths.length === 0 ? 0 : Math.max(...cardWidths);
   const need = Math.max(titleWidth + TITLE_FRAME, cardWidth + CARD_INSET);
   return Math.max(need + (paddingX - CARD_PAD) * 2, MIN_COLUMN);
@@ -91,10 +109,12 @@ const columnRoom = (col: KanbanColumn, measure: (text: string) => number): numbe
 function roomsWithin(diagram: Kanban, paddingX: number, gap: number, budget: number | undefined): { rooms: number[]; gap: number } {
   const rooms = diagram.columns.map(() => UNBOUND);
   const tight = Math.min(gap, TIGHT_GAP);
-  const widths = (): number[] => diagram.columns.map((col, i) => columnWidth(col, paddingX, rooms[i]));
+  const measure = widestRows();
+  const widthOf = (i: number): number => columnWidth(diagram.columns[i], paddingX, rooms[i], measure);
+  const widths = (): number[] => diagram.columns.map((_, i) => widthOf(i));
   if (budget === undefined || spanOf(widths(), gap) <= budget) return { rooms, gap };
   if (spanOf(widths(), tight) <= budget) return { rooms, gap: tight };
-  diagram.columns.forEach((col, i) => (rooms[i] = columnRoom(col, (text) => widestRow(text, UNBOUND))));
+  diagram.columns.forEach((col, i) => (rooms[i] = columnRoom(col, (text) => measure(text, UNBOUND))));
   const words = diagram.columns.map((col) => columnRoom(col, longestWordOf));
   for (const floors of [words, diagram.columns.map(() => MIN_ROOM)]) {
     let drawn = widths();
@@ -103,7 +123,7 @@ function roomsWithin(diagram: Kanban, paddingX: number, gap: number, budget: num
       if (narrowable.length === 0) break;
       const widest = narrowable.reduce((a, b) => (drawn[b] > drawn[a] || (drawn[b] === drawn[a] && rooms[b] > rooms[a]) ? b : a));
       rooms[widest] -= 1;
-      drawn = widths();
+      drawn[widest] = widthOf(widest);
     }
   }
   return { rooms, gap: tight };

@@ -164,22 +164,56 @@ function wordsOf(runs: readonly LabelSegment[]): LabelSegment[][] {
   return words;
 }
 
-// A row of inked runs folded on its words at `cap`, each word keeping its inks and never cut.
-export function wrapSegments(runs: readonly LabelSegment[], cap: number): LabelSegment[][] {
-  if (segmentsWidth(runs) <= cap) return [[...runs]];
-  const rows: LabelSegment[][] = [];
-  let current: LabelSegment[] = [];
-  for (const word of wordsOf(runs)) {
-    if (current.length === 0) current = [...word];
-    else if (segmentsWidth(current) + 1 + segmentsWidth(word) <= cap) current.push(plainRun(SPACE), ...word);
-    else {
-      rows.push(current);
-      current = [...word];
-    }
-  }
-  if (current.length > 0) rows.push(current);
-  return rows.length === 0 ? [[...runs]] : rows;
+export interface FoldedRow {
+  width: number;
+  pieces: () => LabelSegment[];
+  plain: () => string;
 }
+
+// A row of inked runs folded on its words at any cap, each word keeping its inks and never cut: the words are read
+// once, and each fold finds its breaks on their running widths, so folding at many caps costs a row, not a word.
+export type Folding = (cap: number) => FoldedRow[];
+
+export function foldingOf(runs: readonly LabelSegment[]): Folding {
+  const total = segmentsWidth(runs);
+  const wholePlain = runs.map((piece) => piece.text).join("");
+  const whole: FoldedRow[] = [{ width: total, pieces: () => [...runs], plain: () => wholePlain }];
+  const words = wordsOf(runs);
+  // Before word `k`, the widths of the words ahead of it and a space after each.
+  const ahead = [0];
+  for (const word of words) ahead.push(ahead[ahead.length - 1] + segmentsWidth(word) + 1);
+  const lastOf = (from: number, cap: number): number => {
+    let [low, high] = [from, words.length - 1];
+    while (low < high) {
+      const mid = Math.ceil((low + high) / 2);
+      if (ahead[mid + 1] - ahead[from] - 1 <= cap) low = mid;
+      else high = mid - 1;
+    }
+    return low;
+  };
+  const joined = (from: number, last: number) => (): LabelSegment[] =>
+    words.slice(from, last + 1).flatMap((word, at) => (at === 0 ? [...word] : [plainRun(SPACE), ...word]));
+  // A row's text, kept: a word too wide for the cap comes back whole at every narrower one.
+  const plains = new Map<string, string>();
+  const rowPlain = (from: number, last: number) => (): string => {
+    const key = `${from}:${last}`;
+    const plain = plains.get(key) ?? joined(from, last)().map((piece) => piece.text).join("");
+    plains.set(key, plain);
+    return plain;
+  };
+  return (cap) => {
+    if (total <= cap || words.length === 0) return whole;
+    const rows: FoldedRow[] = [];
+    for (let from = 0; from < words.length; ) {
+      const last = lastOf(from, cap);
+      rows.push({ width: ahead[last + 1] - ahead[from] - 1, pieces: joined(from, last), plain: rowPlain(from, last) });
+      from = last + 1;
+    }
+    return rows;
+  };
+}
+
+export const wrapSegments = (runs: readonly LabelSegment[], cap: number): LabelSegment[][] => foldingOf(runs)(cap).map((row) => row.pieces());
 
 // A label mermaid draws as markdown, fenced or not, as rows of inked runs: a row per `<br>` and per line end inside a
 // string, bold and italic read, then each character reference the character it names, so `&lt;b&gt;` is text.

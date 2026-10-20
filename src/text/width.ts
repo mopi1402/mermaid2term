@@ -87,6 +87,28 @@ export function truncateToWidth(text: string, width: number): string {
   return clip(text, width - ellipsisWidth) + ELLIPSIS;
 }
 
+// `displayWidth(truncateToWidth(text, width))` at any width, the text's columns read once.
+export function truncatedWidths(text: string): (width: number) => number {
+  const total = displayWidth(text);
+  const reach = [0];
+  for (const ch of text) reach.push(reach[reach.length - 1] + (isWideEastAsian(ch) ? WIDE_COLUMNS : NARROW_COLUMNS));
+  const clipped = (cols: number): number => {
+    let [low, high] = [0, reach.length - 1];
+    while (low < high) {
+      const mid = Math.ceil((low + high) / 2);
+      if (reach[mid] <= cols) low = mid;
+      else high = mid - 1;
+    }
+    return reach[low];
+  };
+  return (width) => {
+    if (total <= width) return total;
+    const ellipsisWidth = displayWidth(ELLIPSIS);
+    if (width <= ellipsisWidth) return displayWidth(clip(ELLIPSIS, width));
+    return clipped(width - ellipsisWidth) + ellipsisWidth;
+  };
+}
+
 export const widestOf = (texts: readonly string[]): number => Math.max(0, ...texts.map(displayWidth));
 
 export const widestLine = (text: string): number => widestOf(text.split(NEWLINE));
