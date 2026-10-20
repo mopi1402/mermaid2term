@@ -1,7 +1,7 @@
 import { type GridLayout, type SubgraphBounds } from "../layout/grid.js";
 import { cellId } from "./pathfinder.js";
 import { boxedAt, cellsOf, heldCells, type Marks, type RoutedEdge, inRounds, solidCells } from "./routed.js";
-import { notWorse, tally } from "./tally.js";
+import { notWorse, tallied } from "./tally.js";
 import { spanOf } from "./clusters.js";
 import { type Kin } from "./lanes.js";
 
@@ -169,16 +169,16 @@ export function flattenSteps(routed: RoutedEdge[], layout: GridLayout, sgBounds:
     const seat = alongRow ? end[1] : end[0];
     return span !== undefined && seat >= span[0] && seat <= span[1];
   };
-  for (const re of routed) {
-    if (re.label !== "") continue;
+  const counted = tallied(routed, solid, kin);
+  routed.forEach((re, index) => {
+    if (re.label !== "") return;
     for (let again = true; again; ) {
       again = false;
       const path = re.drawPath;
       const tidy = tidyDrawPath(path);
       // A point standing on a straight run reads as a corner on whatever crosses there: the steps are weighed tidy.
-      re.drawPath = tidy;
-      const before = tally(routed, solid, kin);
-      re.drawPath = path;
+      const before = counted.move(index, tidy);
+      counted.move(index, path);
       const candidates: Array<Array<[number, number]> | undefined> = [];
       for (let i = 0; i + 3 < tidy.length; i++) candidates.push(flattened(tidy, i));
       for (const atEnd of [true, false]) {
@@ -188,12 +188,11 @@ export function flattenSteps(routed: RoutedEdge[], layout: GridLayout, sgBounds:
       }
       for (const shorter of candidates) {
         if (again || shorter === undefined || shorter.length >= tidy.length) continue;
-        re.drawPath = shorter;
-        if (notWorse(tally(routed, solid, kin), before)) again = true;
-        else re.drawPath = path;
+        if (notWorse(counted.move(index, shorter), before)) again = true;
+        else counted.move(index, path);
       }
     }
-  }
+  });
 }
 
 export function centreElbows(routed: RoutedEdge[], layout: GridLayout, flowVertical: boolean): void {
