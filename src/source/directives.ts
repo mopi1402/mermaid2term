@@ -8,6 +8,9 @@ const SINGLE = "'";
 const CONFIG_KEY = "config";
 // mermaid's `assignWithDepth` default.
 const MERGE_DEPTH = 2;
+// mermaid's `sanitizeDirective`: a key starting `__` or holding `proto` or `constr` is deleted, at every depth.
+const UNSAFE_KEY_RE = /^__|proto|constr/u;
+const sanitized = (key: string, value: unknown): unknown => (UNSAFE_KEY_RE.test(key) ? undefined : value);
 
 export const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null; // boundary: JSON.parse's one null, refused here so nothing downstream meets it
@@ -16,7 +19,7 @@ export const isRecord = (value: unknown): value is Record<string, unknown> =>
 function assignWithDepth(into: Record<string, unknown>, from: Record<string, unknown>, depth: number): Record<string, unknown> {
   if (depth <= 0) return Object.assign(into, from);
   for (const [key, value] of Object.entries(from)) {
-    const held = into[key];
+    const held = Object.hasOwn(into, key) ? into[key] : undefined;
     if (isRecord(value)) {
       const base = held === undefined ? (Array.isArray(value) ? [] : {}) : held;
       if (isRecord(base)) into[key] = assignWithDepth(base, value, depth - 1);
@@ -38,7 +41,7 @@ export function initConfig(source: string): Record<string, unknown> | undefined 
     else if (match[4] === undefined || match[4].trim() === "") found.push(undefined);
     else {
       try {
-        found.push(JSON.parse(match[4].trim()));
+        found.push(JSON.parse(match[4].trim(), sanitized));
       } catch {
         return undefined;
       }
