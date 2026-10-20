@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- Security and stability fixes.
+
 ## 1.0.0
 
 - First release: eighteen mermaid diagram kinds drawn as Unicode art in the terminal, read from mermaid's own syntax and configuration keys.
