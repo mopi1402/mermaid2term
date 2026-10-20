@@ -115,7 +115,7 @@ export function beside(left: Block, joint: Piece, right: Block): Block {
   return { rows, connect: top };
 }
 
-function subtreeRight(branch: Branch, ch: Chars): Block {
+export function subtreeRight(branch: Branch, ch: Chars): Block {
   const label = labelBlock(branch, ch);
   const children = branchesOf(branch);
   return children.length === 0 ? label : beside(label, run(joint(ch), trunkKey(children)), stackRight(children, ch));
