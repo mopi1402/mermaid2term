@@ -10,11 +10,35 @@ const PACKED_SEPARATOR = "~";
 
 const FORMAT = "deflate-raw" as const;
 
-const pipe = async (bytes: Bytes, stream: CompressionStream | DecompressionStream): Promise<Bytes> => {
+// A link that unpacks past this is read as damaged: a few hundred KB of deflate would otherwise freeze the tab.
+const MAX_SOURCE_BYTES = 1_000_000;
+
+const pipe = (bytes: Bytes, stream: CompressionStream | DecompressionStream): ReadableStream<Uint8Array> => {
   const writer = stream.writable.getWriter();
   void writer.write(bytes).catch(() => undefined);
   void writer.close().catch(() => undefined);
-  return new Uint8Array(await new Response(stream.readable).arrayBuffer());
+  return stream.readable;
+};
+
+const drained = async (readable: ReadableStream<Uint8Array>, limit: number): Promise<Bytes | undefined> => {
+  const reader = readable.getReader();
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+  for (let next = await reader.read(); !next.done; next = await reader.read()) {
+    size += next.value.byteLength;
+    if (size > limit) {
+      void reader.cancel().catch(() => undefined);
+      return undefined;
+    }
+    chunks.push(next.value);
+  }
+  const whole = new Uint8Array(size);
+  let at = 0;
+  for (const chunk of chunks) {
+    whole.set(chunk, at);
+    at += chunk.byteLength;
+  }
+  return whole;
 };
 
 const toBase64 = (bytes: Bytes): string => {
@@ -37,7 +61,7 @@ const toText = (bytes: Bytes): string => new TextDecoder("utf-8", { ignoreBOM: t
 export const written = async (name: string | undefined, source: string): Promise<string> => {
   const bytes = new TextEncoder().encode(source);
   const raw = toBase64(bytes);
-  const packed = toBase64(await pipe(bytes, new CompressionStream(FORMAT)));
+  const packed = toBase64(new Uint8Array(await new Response(pipe(bytes, new CompressionStream(FORMAT))).arrayBuffer()));
   const [separator, code] = packed.length < raw.length ? [PACKED_SEPARATOR, packed] : [RAW_SEPARATOR, raw];
   return `${name ?? ""}${separator}${code}`;
 };
@@ -57,10 +81,11 @@ export const read = async (fragment: string): Promise<Address> => {
   const nameOnly = { name: name === "" ? undefined : name, source: undefined };
   const bytes = fromBase64(fragment.slice(where.at + 1));
   if (bytes === undefined) return nameOnly;
-  if (!where.packed) return { ...nameOnly, source: toText(bytes) };
+  if (!where.packed) return bytes.byteLength > MAX_SOURCE_BYTES ? nameOnly : { ...nameOnly, source: toText(bytes) };
 
   try {
-    return { ...nameOnly, source: toText(await pipe(bytes, new DecompressionStream(FORMAT))) };
+    const unpacked = await drained(pipe(bytes, new DecompressionStream(FORMAT)), MAX_SOURCE_BYTES);
+    return unpacked === undefined ? nameOnly : { ...nameOnly, source: toText(unpacked) };
   } catch {
     return nameOnly;
   }

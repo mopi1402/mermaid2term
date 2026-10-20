@@ -107,4 +107,15 @@ describe("the address that carries the source", () => {
     expect((await read("subgraph-lr~@@@@")).source).toBeUndefined();
     expect((await read("subgraph-lr_@@@@")).source).toBeUndefined();
   });
+
+  it("reads a link that unpacks past the size cap as damaged, and fast", async () => {
+    // 388 KB of deflate expanding to 200 MB froze the viewer's tab for over a minute.
+    const bomb = zlib.deflateRawSync(Buffer.from(`graph TD\n${"%% c\n".repeat(40_000_000)}`), { level: 9 });
+    const started = performance.now();
+    expect(await read(`bomb~${bomb.toString("base64url")}`)).toEqual({ name: "bomb", source: undefined });
+    expect(performance.now() - started).toBeLessThan(500);
+
+    const wide = Buffer.alloc(1_500_000, "a").toString("base64url");
+    expect(await read(`wide_${wide}`)).toEqual({ name: "wide", source: undefined });
+  });
 });
