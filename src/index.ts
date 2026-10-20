@@ -20,6 +20,7 @@ import { printed } from "./source/source.js";
 
 export { declaredType, parse, render, renderThemed, renderThemedText, renderThemedTextTimed, type Options, type TimedText } from "./api.js";
 export { Graph } from "./graph/model.js";
+// jscpd:ignore-start: a flat export list matches itself one row down once identifiers are ignored
 export const parseArchitecture = printed(parseArchitectureRaw);
 export const parseFlowchart = printed(parseFlowchartRaw);
 export const parseGantt = printed(parseGanttRaw);
@@ -38,6 +39,7 @@ export const parseStateDiagram = printed(parseStateDiagramRaw);
 export const parseTreemap = printed(parseTreemapRaw);
 export const parseXYChart = printed(parseXYChartRaw);
 export const parseTimeline = printed(parseTimelineRaw);
+// jscpd:ignore-end
 export { renderGraph, renderGraphCanvas } from "./graph/render/draw.js";
 export { BORDER_MODES, type BorderMode } from "./options.js";
 export { renderClassDiagram } from "./diagrams/classdiagram/render.js";

@@ -164,7 +164,7 @@ function wordsOf(runs: readonly LabelSegment[]): LabelSegment[][] {
   return words;
 }
 
-export interface FoldedRow {
+interface FoldedRow {
   width: number;
   pieces: () => LabelSegment[];
   plain: () => string;
