@@ -17,6 +17,7 @@ mermaid2term follows mermaid's grammar and rendering unless a row below says oth
 | `rgba()` is laid over black, `#rrggbbaa` loses its alpha | A cell holds one ground, with no layer to blend |
 | Our own keys, prefixed `m2t_`: `charset`, `borders`, `bands`, `airyLabels`, `snugFrames`, `autoRotate`, `faintColor`, `edgeLabelColor` | Terminal concerns mermaid has no key for |
 | Pixel keys read as cells, in proportion to mermaid's default: `flowchart.padding`, `block.padding`, `nodeSpacing` and `rankSpacing` under `layout: dagre` | A terminal has no pixels |
+| `flowchart.padding` and `block.padding` stop at 20 cells an axis | A wider pad is wider than any terminal, and an unbounded one took tens of seconds and a gigabyte from a 63-byte source |
 
 ## By kind
 
@@ -51,14 +52,18 @@ mermaid2term follows mermaid's grammar and rendering unless a row below says oth
 | gantt | The axis also names the chart's first and last date | A narrow chart is often left with one round date |
 | gantt | An `excludes` date matches whatever the case of its month | mermaid silently drops it on a case slip |
 | gantt | `0.5d` keeps its fraction | It is the same half day as `12h` |
+| gantt | `excludes` stops pushing quietly past 10 000 days a task or 200 000 days a chart, the tasks left keep their unpushed end | mermaid throws, after grinding for minutes |
 | xychart | `showDataLabel` writes each bar's own value | mermaid writes the first plot's values on every series |
 | xychart | A partial `themeVariables.xyChart` keeps the theme's other inks | mermaid falls back to `default`'s, unreadable on a dark page |
+| xychart | A value that is no finite number (`1e999`) is dropped, an axis range that overflows one is read as unwritten | mermaid fails on the first and draws NaN geometry on the second |
 | kanban | A card's priority is its left wall, heavy and coloured | A cell cannot hold a 4px bar beside a border |
 | architecture | A junction whose branches pair up is folded away, unless a head points into it | A straight run reads plainer than a join |
 | architecture | A service seated inside a group it is not a member of steps out | A frame reads as membership |
 | block | An arrow block is a box with a tip on each wall it points through | Slanted walls break into steps |
 | block | A block of width `0` takes one column | mermaid draws nothing at all |
 | block | A labelled link moves its blocks apart to hold the label whole | mermaid lays the blocks out ignoring it, the label's box lands over them |
+| block | A grid is at most 100 columns and a padding at most 100 cells; a wider count or span is read as that bound | One entry per column killed the process with an uncatchable out-of-memory from 30 bytes |
 | packet | Too wide for its budget, the row halves its bits | A terminal cannot scale the strip |
+| packet | At most 500 rows are drawn, mermaid stops at 10 000 | Ten thousand rows is 40 000 terminal lines from a 30-byte source |
 | journey | The faces stand on a ruled 5 to 1 scale | A bare row says nothing of the score |
 | quadrant | Texts that meet are moved apart | On a grid the later text erases the earlier |
