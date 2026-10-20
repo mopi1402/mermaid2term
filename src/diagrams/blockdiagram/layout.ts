@@ -41,13 +41,12 @@ function layoutGrid(blocks: Block[], columns: number): Grid {
 // The width a composite's title asks for, with the same pad and walls as its grid.
 const titleWidth = (group: Block): number => (group.label === "" ? 0 : displayWidth(group.label) + GROUP_PAD * 2 + BORDERS);
 
-function blockSize(block: Block, paddingX: number, colGap: number): [number, number] {
+// A composite reads its children's sizes from `sizes`, where `computeAllSizes` set them first.
+function blockSize(block: Block, sizes: Sized, paddingX: number, colGap: number): [number, number] {
   if (block.isSpace) return [MIN_BLOCK_W, MIN_BLOCK_H];
 
   if (block.children.length > 0) {
-    const childSizes: Sized = new Map();
-    computeAllSizes(block.children, childSizes, paddingX, colGap);
-    const { colWidths, rowHeights } = sizedGrid(block.children, block.columns, childSizes, colGap);
+    const { colWidths, rowHeights } = sizedGrid(block.children, block.columns, sizes, colGap);
 
     const innerW = spanOf(colWidths, colGap);
     const innerH = spanOf(rowHeights, ROW_GAP);
@@ -72,8 +71,8 @@ function blockSize(block: Block, paddingX: number, colGap: number): [number, num
 
 export function computeAllSizes(blocks: Block[], sizes: Sized, paddingX: number, colGap: number): void {
   for (const block of blocks) {
-    sizes.set(block.id, blockSize(block, paddingX, colGap));
     if (block.children.length > 0) computeAllSizes(block.children, sizes, paddingX, colGap);
+    sizes.set(block.id, blockSize(block, sizes, paddingX, colGap));
   }
 }
 
